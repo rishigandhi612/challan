@@ -71,25 +71,26 @@
     <div class="container Input fields" id="inputtable" style="text-align: center; ">
         || श्री ||<br><br>
         <p>
-            <input type="text" id="challanNumber" placeholder="Challan Number"><br><br>
-            <button id="selectDetailsBtn" onclick="selectCustomerDetails()">Select Customer Details</button>
+            <input type="text" id="challanNumber" placeholder="Challan Number" ><br><br>
+            <button id="selectDetailsBtn" onclick="selectCustomerDetails()" class="btn btn-warning">Select Customer Details</button>
             <div id="customerDetailsInput" style="display: none;">
                 <input type="text" id="customerName" placeholder=" Customer Name"><br><br>
                 <input type="text" id="customerAddress" placeholder=" Customer Address"><br><br>
                 <input type="tel" id="customerPhone" placeholder=" Customer Phone No"><br><br>
                 <input type="text" id="transporterName" placeholder=" Transporter"><br><br>
                 <input type="text" id="customergstno" placeholder=" Customer GST No"><br><br>
-                <button onclick="applyManualDetails()">Apply</button>
+                <button onclick="applyManualDetails()" class="btn btn-success">Apply</button> <br>
             </div>
+            <br>
             <label for="itemName">Item Name:</label>
-            <select id="itemName">
+            <select id="itemName" >
                 <option value="BOPP FILM">BOPP FILM</option>
                 <option value="MATT FILM">MATT FILM</option>
-
                 <option value="Thermal Gloss Film">Thermal Gloss Film</option>
                 <option value="Thermal Matt Film">Thermal Matt Film</option>
-                <option value="Lacquerised Embossed Polyester Film">3D Film</option>
+                <option value="Lacquerised Embossed Clear Polyester Film">3D Film</option>
                 <option value="METPET Chemical coated FILM">CC METPET Film</option>
+                <option value="HST BOPP FILM">HST FILM</option>
                 <option value="TC-207">TC-207</option>
                 <option value="TC-177">TC-177</option>
                 <option value="TC-107">TC-107</option>
@@ -103,8 +104,8 @@
             <input type="number" id="itemQuantity" placeholder=" Quantity"><br><br>
             <input type="number" id="itemRate" placeholder=" Rate"><br><br>
             <input type="number" id="otherCharges" placeholder=" Other Charges"><br><br>
-            <input type="button" id="addItem" value="Add Item">
-            <input type="button" id="sb" value="Generate Challan">
+            <input type="button" id="addItem" value="Add Item"  class="btn btn-secondary"> <br> <br>
+            <input type="button" id="sb" class="btn btn-primary" value="Generate Challan">
 
         </p>
     </div>
@@ -147,7 +148,7 @@
 
         </p>
         <br><br>
-        <button id="printBtn" onclick="window.print()">Print</button>
+        <button id="printBtn" onclick="window.print()" class="btn btn-primary">Print</button>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
