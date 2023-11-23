@@ -10,19 +10,22 @@
     <style>
         @media print {
             body {
-                border: none;
-                margin: 0;
+                margin: 0 !important;
             }
 
             @page {
-                border: none;
-                margin: 0;                                                                                                        
+                size: A4;
+                margin: 0!important;
+            }
+
+            .row {
+                page-break-inside: avoid;
             }
 
             .container {
-                width: 200mm;
-                height: 275mm;
-                position: relative;
+                width: 100%!important;
+                height: 100%!important;
+                position: relative!important;
             }
 
             .header {
@@ -40,21 +43,9 @@
                 font-weight: 900;
             }
 
-            #itemsTableBody tr {
-                display: none;
-            }
-
-            #itemsTableBody tr:nth-child(-n+10) {
-                display: table-row;
-            }
-
             #printBtn {
                 display: none;
             }
-
-            /* #cnv {
-                margin-top: 40mm
-            } */
         }
 
         .output {
@@ -71,41 +62,42 @@
     <div class="container Input fields" id="inputtable" style="text-align: center; ">
         || श्री ||<br><br>
         <p>
-            <input type="text" id="challanNumber" placeholder="Challan Number" ><br><br>
-            <button id="selectDetailsBtn" onclick="selectCustomerDetails()" class="btn btn-warning">Select Customer Details</button>
-            <div id="customerDetailsInput" style="display: none;">
-                <input type="text" id="customerName" placeholder=" Customer Name"><br><br>
-                <input type="text" id="customerAddress" placeholder=" Customer Address"><br><br>
-                <input type="tel" id="customerPhone" placeholder=" Customer Phone No"><br><br>
-                <input type="text" id="transporterName" placeholder=" Transporter"><br><br>
-                <input type="text" id="customergstno" placeholder=" Customer GST No"><br><br>
-                <button onclick="applyManualDetails()" class="btn btn-success">Apply</button> <br>
-            </div>
-            <br>
-            <label for="itemName">Item Name:</label>
-            <select id="itemName" >
-                <option value="BOPP FILM">BOPP FILM</option>
-                <option value="MATT FILM">MATT FILM</option>
-                <option value="Thermal Gloss Film">Thermal Gloss Film</option>
-                <option value="Thermal Matt Film">Thermal Matt Film</option>
-                <option value="Lacquerised Embossed Clear Polyester Film">3D Film</option>
-                <option value="METPET Chemical coated FILM">CC METPET Film</option>
-                <option value="HST BOPP FILM">HST FILM</option>
-                <option value="TC-207">TC-207</option>
-                <option value="TC-177">TC-177</option>
-                <option value="TC-107">TC-107</option>
-                <option value="TC-108">TC-108</option>
-                <option value="HOLO USP">HOLO USP</option>
-                <option value="TC-777">TC-777</option>
-                <option value="HOLO RG GUM">HOLO RG GUM</option>
-            </select><br><br>
+            <input type="text" id="challanNumber" placeholder="Challan Number"><br><br>
+            <button id="selectDetailsBtn" onclick="selectCustomerDetails()" class="btn btn-warning">Select Customer
+                Details</button>
+        <div id="customerDetailsInput" style="display: none;">
+            <input type="text" id="customerName" placeholder=" Customer Name"><br><br>
+            <input type="text" id="customerAddress" placeholder=" Customer Address"><br><br>
+            <input type="tel" id="customerPhone" placeholder=" Customer Phone No"><br><br>
+            <input type="text" id="transporterName" placeholder=" Transporter"><br><br>
+            <input type="text" id="customergstno" placeholder=" Customer GST No"><br><br>
+            <button onclick="applyManualDetails()" class="btn btn-success">Apply</button> <br>
+        </div>
+        <br>
+        <label for="itemName">Item Name:</label>
+        <select id="itemName">
+            <option value="BOPP FILM">BOPP FILM</option>
+            <option value="MATT FILM">MATT FILM</option>
+            <option value="Thermal Gloss Film">Thermal Gloss Film</option>
+            <option value="Thermal Matt Film">Thermal Matt Film</option>
+            <option value="Lacquerised Embossed Clear Polyester Film">3D Film</option>
+            <option value="METPET Chemical coated FILM">CC METPET Film</option>
+            <option value="HST BOPP FILM">HST FILM</option>
+            <option value="TC-207">TC-207</option>
+            <option value="TC-177">TC-177</option>
+            <option value="TC-107">TC-107</option>
+            <option value="TC-108">TC-108</option>
+            <option value="HOLO USP">HOLO USP</option>
+            <option value="TC-777">TC-777</option>
+            <option value="HOLO RG GUM">HOLO RG GUM</option>
+        </select><br><br>
 
-            <input type="number" id="itemWidth" placeholder=" Width"><br><br>
-            <input type="number" id="itemQuantity" placeholder=" Quantity"><br><br>
-            <input type="number" id="itemRate" placeholder=" Rate"><br><br>
-            <input type="number" id="otherCharges" placeholder=" Other Charges"><br><br>
-            <input type="button" id="addItem" value="Add Item"  class="btn btn-secondary"> <br> <br>
-            <input type="button" id="sb" class="btn btn-primary" value="Generate Challan">
+        <input type="number" id="itemWidth" placeholder=" Width"><br><br>
+        <input type="number" id="itemQuantity" placeholder=" Quantity"><br><br>
+        <input type="number" id="itemRate" placeholder=" Rate"><br><br>
+        <input type="number" id="otherCharges" placeholder=" Other Charges"><br><br>
+        <input type="button" id="addItem" value="Add Item" class="btn btn-secondary"> <br> <br>
+        <input type="button" id="sb" class="btn btn-primary" value="Generate Challan">
 
         </p>
     </div>
@@ -113,7 +105,7 @@
         <div class="header">
             <p style="padding-top: 20px; padding-bottom: 0%; margin-bottom: 0%;"> || श्री || </p>
             <h1
-                style="font-size: 60px; font-weight: 900; padding-top: 0%; padding-bottom: 0%; margin-top: 0%; margin-bottom: -1%; ">
+                style="font-size: 55px; font-weight: 900; padding-top: 0%; padding-bottom: 0%; margin-top: 0%; margin-bottom: -1%; ">
                 HEMANT TRADERS</h1>
             <div class="row">
                 <div class="col-md-12">
@@ -156,14 +148,14 @@
     <script>
         var itemsArray = [];
         var customers = [
-        { name: 'Aditya Industrial Supplier', address: 'Gut No.39, Plot No.8157, Behind Seven Three Heater, CEAT Road, MIDC Waluj Aurangabad -431136.', phone: '9673001214,9834772728', transporter: 'Option Transport Pvt Ltd', gst: '27AJJPB3646H1ZA' },
-        { name: 'S.S.Enterprises', address: '301,Heera Plaza,Near Telephone Exchange,867,C.A.Road,Nagpur - 440008', phone: '9373129863', transporter: 'Shree Jay Roadways', gst: '27AJLPK3004A1ZT' },
-        { name: 'Quality Print & Pack', address: 'N-97/3,MIDC,Jalgaon', phone: '9823292558', transporter: 'Arco Roadways', gst: '27AHHPC6839P2ZP' },
-        { name: 'Ashutosh Printing and Packaging', address: 'Shop No. 5/6, New Bhadrawati Complex, Nr Laxminarayan Talkies, M.I.D.C. Road, Solapur', phone: '9895471712 /8379898405', transporter: 'NavSamata Transport', gst: '27ANJPK1190M1ZN' },
-        { name: 'S S Print Lamination', address: 'Kolhapur', phone: '9766624215', transporter: 'Sandesh Transport', gst: '' },
-        { name: 'Jaydeep Lamination', address: 'Kolhapur', phone: '7972197676 / 9922212169', transporter: 'Sandesh Transport', gst: '' },
-        
-        // Add more customers as needed
+            { name: 'Aditya Industrial Supplier', address: 'Gut No.39, Plot No.8157, Behind Seven Three Heater, CEAT Road, MIDC Waluj Aurangabad -431136.', phone: '9673001214,9834772728', transporter: 'Option Transport Pvt Ltd', gst: '27AJJPB3646H1ZA' },
+            { name: 'S.S.Enterprises', address: '301,Heera Plaza,Near Telephone Exchange,867,C.A.Road,Nagpur - 440008', phone: '9373129863', transporter: 'Shree Jay Roadways', gst: '27AJLPK3004A1ZT' },
+            { name: 'Quality Print & Pack', address: 'N-97/3,MIDC,Jalgaon', phone: '9823292558', transporter: 'Arco Roadways', gst: '27AHHPC6839P2ZP' },
+            { name: 'Ashutosh Printing and Packaging', address: 'Shop No. 5/6, New Bhadrawati Complex, Nr Laxminarayan Talkies, M.I.D.C. Road, Solapur', phone: '9895471712 /8379898405', transporter: 'NavSamata Transport', gst: '27ANJPK1190M1ZN' },
+            { name: 'S S Print Lamination', address: 'Kolhapur', phone: '9766624215', transporter: 'Sandesh Transport', gst: '' },
+            { name: 'Jaydeep Lamination', address: 'Kolhapur', phone: '7972197676 / 9922212169', transporter: 'Sandesh Transport', gst: '' },
+
+            // Add more customers as needed
         ];
         var generateChallanClicked = false;
 
@@ -187,7 +179,7 @@
                 return;
             }
             var otherCharges = parseFloat(document.getElementById('otherCharges').value) || 0;
-            var adjustedWidth = parseFloat(itemWidth) > 60 ? itemWidth + " mm" : itemWidth + '"' ;
+            var adjustedWidth = parseFloat(itemWidth) > 60 ? itemWidth + " mm" : itemWidth + '"';
             var itemAmount = (itemQuantity * itemRate) + otherCharges;
             var item = {
                 name: itemName,
@@ -281,17 +273,18 @@
             var totalAmount = parseFloat(calculateTotalAmount(itemsArray)) + cgstAmount + sgstAmount;
             totalCell4.innerHTML = `<strong>${Math.round(totalAmount)}/- </strong>`;
             document.getElementById('cnv').innerHTML = `
+            <span style="font-size: 10px; font-weight:600;">(ORIGINAL FOR RECIPIENT)</span>
             <div class="row">
-                <div class="col-md-4"></div>
-            </div>
-            <div class="row">
-                <span  style="font-size: 10px; font-weight:600;">(ORIGINAL FOR RECIPIENT)</span> <br>
-                <div class="col-md-6" style="text-align: left;  padding-left: 10%;">
-                <h4> D No.: ${challanNumber}/BWD </h4>
-            </div>
-            <div class="col-md-6" style="text-align: right; padding-right: 10%;">
-                <h4> DATE ${dateString} </h4>
-            </div>
+                <div class="col-md-12" style="display: inline; text-align: left;">
+                    <div class="row">
+                        <div class="col-md-4" style="display: inline; text-align: left;">
+                         <p> D No.: ${challanNumber}/BWD </p>
+                        </div>
+                        <div class="col-md-8" style=" display: inline; text-align: right;">
+                         <p> DATE ${dateString} </p>
+                        </div>
+                    </div>
+                </div>
         </div>
         <div class="row">
     <div class="col-md-12">
@@ -326,46 +319,46 @@
             return totalAmount;
         }
         function applyManualDetails() {
-        // Retrieve values from input fields and update corresponding elements
-        var customerName = document.getElementById('customerName').value;
-        var customerAddress = document.getElementById('customerAddress').value;
-        var customerPhone = document.getElementById('customerPhone').value;
-        var transporterName = document.getElementById('transporterName').value;
-        var customerGSTnumber = document.getElementById('customergstno').value;
+            // Retrieve values from input fields and update corresponding elements
+            var customerName = document.getElementById('customerName').value;
+            var customerAddress = document.getElementById('customerAddress').value;
+            var customerPhone = document.getElementById('customerPhone').value;
+            var transporterName = document.getElementById('transporterName').value;
+            var customerGSTnumber = document.getElementById('customergstno').value;
 
-        // Update the input fields with the manual entry details
-        document.getElementById('customerName').value = customerName;
-        document.getElementById('customerAddress').value = customerAddress;
-        document.getElementById('customerPhone').value = customerPhone;
-        document.getElementById('transporterName').value = transporterName;
-        document.getElementById('customergstno').value = customerGSTnumber;
+            // Update the input fields with the manual entry details
+            document.getElementById('customerName').value = customerName;
+            document.getElementById('customerAddress').value = customerAddress;
+            document.getElementById('customerPhone').value = customerPhone;
+            document.getElementById('transporterName').value = transporterName;
+            document.getElementById('customergstno').value = customerGSTnumber;
 
-        // Hide the input fields
-        document.getElementById('customerDetailsInput').style.display = 'none';
-    }
-    function selectCustomerDetails() {
-        var options = customers.map((customer, index) => `${index + 1}. ${customer.name}`).join('\n');
-        options += '\n' + (customers.length + 1) + '. Other';
-
-        var option = prompt("Select an option:\n" + options);
-
-        if (option >= 1 && option <= customers.length) {
-            // User selected a predefined customer
-            var selectedCustomer = customers[parseInt(option) - 1];
-
-            // Update the input fields with the selected customer details
-            document.getElementById('customerName').value = selectedCustomer.name;
-            document.getElementById('customerAddress').value = selectedCustomer.address;
-            document.getElementById('customerPhone').value = selectedCustomer.phone;
-            document.getElementById('transporterName').value = selectedCustomer.transporter;
-            document.getElementById('customergstno').value = selectedCustomer.gst;
-        } else if (option == customers.length + 1) {
-            // User selected 'Other', show input fields for manual entry
-            document.getElementById('customerDetailsInput').style.display = 'block';
-        } else {
-            alert("Invalid option");
+            // Hide the input fields
+            document.getElementById('customerDetailsInput').style.display = 'none';
         }
-    }
+        function selectCustomerDetails() {
+            var options = customers.map((customer, index) => `${index + 1}. ${customer.name}`).join('\n');
+            options += '\n' + (customers.length + 1) + '. Other';
+
+            var option = prompt("Select an option:\n" + options);
+
+            if (option >= 1 && option <= customers.length) {
+                // User selected a predefined customer
+                var selectedCustomer = customers[parseInt(option) - 1];
+
+                // Update the input fields with the selected customer details
+                document.getElementById('customerName').value = selectedCustomer.name;
+                document.getElementById('customerAddress').value = selectedCustomer.address;
+                document.getElementById('customerPhone').value = selectedCustomer.phone;
+                document.getElementById('transporterName').value = selectedCustomer.transporter;
+                document.getElementById('customergstno').value = selectedCustomer.gst;
+            } else if (option == customers.length + 1) {
+                // User selected 'Other', show input fields for manual entry
+                document.getElementById('customerDetailsInput').style.display = 'block';
+            } else {
+                alert("Invalid option");
+            }
+        }
     </script>
 </body>
 
