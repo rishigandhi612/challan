@@ -16,7 +16,7 @@
 
             @page {
                 size: A4;
-                margin: -5!important;
+                margin: -5 !important;
                 padding: 0% !important;
             }
 
@@ -24,10 +24,17 @@
                 page-break-inside: avoid;
             }
 
+            .header h1 {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                /* Optional: Display an ellipsis (...) if the text is too long */
+            }
+
             .container {
-                width: 100%!important;
-                height: 100%!important;
-                position: relative!important;
+                width: 100% !important;
+                height: 100% !important;
+                position: relative !important;
             }
 
             .header {
@@ -108,8 +115,9 @@
         <div class="header">
             <p style="padding-top: 20px; padding-bottom: 0%; margin-bottom: 0%;"> || श्री || </p>
             <div class="row">
-            <h1
-                style="font-size: 50px; font-weight: 900; padding-top: 0%; padding-bottom: 0%; margin-top: 0%; margin-bottom: -1%; ">HEMANT TRADERS</h1>
+                <h1
+                    style="font-size: 50px; font-weight: 900; padding-top: 0%; padding-bottom: 0%; margin-top: 0%; margin-bottom: -1%; ">
+                    HEMANT TRADERS</h1>
             </div>
             <div class="row">
                 <div class="col-md-12">
@@ -162,7 +170,7 @@
             { name: 'Shri Sadguru Enterprises', address: 'Behind Aai Mata Mandir, Near Marketyard , Pune', phone: '+91 81491 48154', transporter: 'JD Transport', gst: '27AARPD8025D1ZS' },
             { name: 'Rohit Offset', address: 'Bhutkarwadi,Bhingardive, Savedi Road, Ahmednagar - 414003.', phone: '+91 92253 20870', transporter: 'Jaggi Goods Transport', gst: '27AJMPB0572H1ZC' },
             { name: 'Mangal Printers', address: '3688,Pansare Lane,Near Urban Bank, Ahmednagar - 414001.,', phone: '( +91 ) 9890091913 / 8421732214.', transporter: 'Jaggi Goods Transport', gst: '27ACRPS4317F1ZA' },
-            
+
             // Add more customers as needed
         ];
         var generateChallanClicked = false;
