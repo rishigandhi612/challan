@@ -10,13 +10,13 @@
     <style>
         @media print {
             body {
-                margin: -5 !important;
+                margin: none !important;
                 padding: 0% !important;
             }
 
             @page {
                 size: A4;
-                margin: -5 !important;
+                margin: none !important;
                 padding: 0% !important;
             }
 
@@ -38,7 +38,7 @@
             }
 
             .header {
-                color: darkorange;
+             
                 font-weight: bolder;
                 z-index: 1;
                 text-align: center;
@@ -47,17 +47,20 @@
             p.footer {
                 position: fixed;
                 bottom: 5%;
-                left: 20mm;
-                color: darkorange;
+          
                 font-weight: 900;
             }
 
             #printBtn {
                 display: none;
             }
+         
         }
 
         .output {
+            display: none;
+        }
+        .footer{
             display: none;
         }
     </style>
@@ -113,26 +116,13 @@
     </div>
     <div class="container output" style="text-align: center; ">
         <div class="header">
-            <p style="padding-top: 20px; padding-bottom: 0%; margin-bottom: 0%;"> || श्री || </p>
-            <div class="row">
-                <h1
-                    style="font-size: 50px; font-weight: 900; padding-top: 0%; padding-bottom: 0%; margin-top: 0%; margin-bottom: -1%; ">
-                    HEMANT TRADERS</h1>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <h6 style="font-size: 14px; font-weight: 900;">1281, SADASHIV PETH, VERTEX ARCADE, PUNE - 411030
-                    </h6>
-                </div>
-            </div>
-            <h6 style="font-size: 18px; font-weight: 900;">Contact: 9422080922 / 9420699675 | E-mail:
-                hemanttraders111@yahoo.in</h6>
-            <h6 style="font-size: 18px; font-weight: 900;">GSTIN: 27AAVPG7824M1ZX</h6>
-        </div>
+            <div class="row"  style="height: 100%; width: 100%; ">
+               <img src="Screen Shot 2023-12-12 at 6.31.48 PM.png" alt="">
+               </div>
         <div class="row">
             <div class="col-md-12" id="cnv"></div>
         </div>
-
+            </div>
         <table class="table" id="itemsTable" style="display: none;">
             <thead>
                 <tr>
@@ -144,16 +134,13 @@
             </thead>
             <tbody id="itemsTableBody"></tbody>
         </table>
-        <p class="footer">* टीप:आम्ही कोणत्याही प्रकारच्या रोलची हमी देत नाही.
-            मशीनवर लोड करण्यापूर्वी रोल तपासला पाहिजे. *<br> <br>
-
-            Any Complaints If Any To Be Entertained Within 24 Hrs Only After The Delivery<br>
-            COMPUTER GENERATED DOCUMENT AND DOESN'T REQUIRE ANY SIGNATURE
-
-        </p>
+       
         <br><br>
-        <button id="printBtn" onclick="window.print()" class="btn btn-primary">Print</button>
+       
     </div>
+    <p class="footer"><img src="Screen Shot 2023-12-13 at 1.55.35 AM.png" style="width: 80%; height: 80%; text-align: center; margin-left: 7%; padding-left: 7%;" alt="" srcset="">
+    </p>
+    <button id="printBtn" onclick="window.print()" class="btn btn-primary">Print</button>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
         </script>
@@ -291,17 +278,16 @@
             document.getElementById('cnv').innerHTML = `
             <span style="font-size: 10px; font-weight:600;">(ORIGINAL FOR RECIPIENT)</span>
             <div class="row">
-                <div class="col-md-12" style="display: inline; text-align: left;">
-                    <div class="row">
-                        <div class="col-md-4" style="display: inline; text-align: left;">
-                         <p> D No.: ${challanNumber}/BWD </p>
-                        </div>
-                        <div class="col-md-8" style=" display: inline; text-align: right;">
-                         <p> DATE ${dateString} </p>
-                        </div>
-                    </div>
-                </div>
+    <div class="col-md-12" style="display: flex; justify-content: space-between; text-align: left;">
+        <div class="col-md-3" style="text-align: left;">
+            <p>D No.: ${challanNumber}/BWD</p>
         </div>
+        <div class="col-md-3" style="text-align: right;">
+            <p>DATE ${dateString}</p>
+        </div>
+    </div>
+</div>
+
         <div class="row">
     <div class="col-md-12">
         <p style="display: inline;">M/S</p>
@@ -320,6 +306,7 @@
 
             // Show output section
             document.querySelector('.output').style.display = 'block';
+            document.querySelector('.footer').style.display = 'block';
             window.print();
         }
         function calculateGST(items, rate) {
