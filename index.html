@@ -88,23 +88,23 @@
         <br>
         <label for="itemName">Item Name:</label>
         <select id="itemName">
-            <option value="BOPP FILM">BOPP FILM</option>
-            <option value="MATT FILM">MATT FILM</option>
-              <option value="23MIC PET FILM">23MIC POLYSTER FILM</option>
-            <option value="Thermal Gloss Film">Thermal Gloss Film</option>
-            <option value="Thermal Matt Film">Thermal Matt Film</option>
-            <option value="17 mic Pearlise Film">17 mic Pearlise Film</option>
-            <option value="Lacquerised Embossed Clear Polyester Film">3D Film</option>
-            <option value="METPET Chemical coated FILM">CC METPET Film</option>
-            <option value="HST BOPP FILM">HST FILM</option>
-            <option value="TC-207">TC-207</option>
-            <option value="TC-177">TC-177</option>
-            <option value="TC-107">TC-107</option>
-            <option value="TC-108">TC-108</option>
-            <option value="HOLO USP">HOLO USP</option>
-            <option value="TC-777">TC-777</option>
-            <option value="HOLO RG GUM">HOLO RG GUM</option>
-            <option value="TS-1000">TS-1000</option>
+            <option value="BOPP FILM" data-category="film">BOPP FILM</option>
+            <option value="MATT FILM" data-category="film">MATT FILM</option>
+              <option value="23MIC PET FILM" data-category="film">23MIC POLYSTER FILM</option>
+            <option value="Thermal Gloss Film" data-category="film">Thermal Gloss Film</option>
+            <option value="Thermal Matt Film" data-category="film">Thermal Matt Film</option>
+            <option value="17 mic Pearlise Film" data-category="film">17 mic Pearlise Film</option>
+            <option value="Lacquerised Embossed Clear Polyester Film" data-category="film">3D Film</option>
+            <option value="METPET Chemical coated FILM" data-category="film">CC METPET Film</option>
+            <option value="HST BOPP FILM" data-category="film">HST FILM</option>
+            <option value="TC-207" data-category="adhesive">TC-207</option>
+            <option value="TC-177" data-category="adhesive">TC-177</option>
+            <option value="TC-107" data-category="adhesive">TC-107</option>
+            <option value="TC-108" data-category="adhesive">TC-108</option>
+            <option value="HOLO USP" data-category="adhesive">HOLO USP</option>
+            <option value="TC-777" data-category="adhesive">TC-777</option>
+            <option value="HOLO RG GUM" data-category="adhesive">HOLO RG GUM</option>
+            <option value="TS-1000" data-category="adhesive">TS-1000</option>
         </select><br><br>
 
         <input type="number" id="itemWidth" placeholder=" Width"><br><br>
@@ -180,10 +180,18 @@
             var itemRate = document.getElementById('itemRate').value;
 
             // Validation
-            if (itemName === "" || itemWidth === "" || itemQuantity === "") {
-                alert("Item Name, Width, and Quantity cannot be empty.");
-                return;
-            }
+            if (itemName === "" || itemQuantity === "") {
+        alert("Item Name and Quantity cannot be empty.");
+        return;
+        }
+  // Check if item is a film type
+    var category = document.getElementById('itemName').selectedOptions[0].getAttribute('data-category');
+
+    if (category === 'film' && itemWidth === "") {
+        alert("Width is required for film types.");
+        return;
+    }
+
             var otherCharges = parseFloat(document.getElementById('otherCharges').value) || 0;
             var adjustedWidth = parseFloat(itemWidth) > 60 ? itemWidth + " mm" : itemWidth + '"';
             var itemAmount = (itemQuantity * itemRate) + otherCharges;
