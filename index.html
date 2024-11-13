@@ -73,11 +73,6 @@
 
     <div class="container Input fields" id="inputtable" style="text-align: center; ">
         || श्री ||<br><br>
-        <label for="traderSelect">Choose a Trader:</label>
-  <select id="traderSelect" onchange="updateTrader()">
-    <option value="hemant">Hemant Traders</option>
-    <option value="ansales">A N Sales</option>
-  </select>
         <p>
             <input type="text" id="challanNumber" placeholder="Challan Number"><br><br>
             <button id="selectDetailsBtn" onclick="selectCustomerDetails()" class="btn btn-warning">Select Customer
@@ -252,10 +247,9 @@
             var itemsTableHTML = itemsTable.innerHTML;
 
             // Calculate CGST and SGST
-             if (traderSelect === "hemant") {
-            var cgstAmount = calculateGST(itemsArray, 0.09);
-            var sgstAmount = calculateGST(itemsArray, 0.09);
-             }
+            // var cgstAmount = calculateGST(itemsArray, 0.09);
+            // var sgstAmount = calculateGST(itemsArray, 0.09);
+
             // Add CGST row
             var cgstRow = itemsTable.insertRow(itemsTable.rows.length);
             var cgstCell1 = cgstRow.insertCell(0);
