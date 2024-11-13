@@ -284,7 +284,8 @@
             totalCell1.innerHTML = "";
             totalCell2.innerHTML = "";
             totalCell3.innerHTML = "<strong>Total Amt (INR):</strong>";
-            var totalAmount = parseFloat(calculateTotalAmount(itemsArray)) + cgstAmount + sgstAmount;
+            var totalAmount = parseFloat(calculateTotalAmount(itemsArray));
+                // + cgstAmount + sgstAmount;
             totalCell4.innerHTML = `<strong>${Math.round(totalAmount)}/- </strong>`;
             document.getElementById('cnv').innerHTML = `
             <span style="font-size: 10px; font-weight:600;">(ORIGINAL FOR RECIPIENT)</span>
