@@ -243,11 +243,11 @@
             var itemsTable = document.getElementById('itemsTableBody');
             var itemsTableHTML = itemsTable.innerHTML;
 
-            Calculate CGST and SGST
+            // Calculate CGST and SGST
             var cgstAmount = calculateGST(itemsArray, 0.09);
             var sgstAmount = calculateGST(itemsArray, 0.09);
 
-            Add CGST row
+            // Add CGST row
             var cgstRow = itemsTable.insertRow(itemsTable.rows.length);
             var cgstCell1 = cgstRow.insertCell(0);
             var cgstCell2 = cgstRow.insertCell(1);
