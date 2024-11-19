@@ -107,7 +107,7 @@
             <option value="TS-1000" data-category="adhesive">TS-1000</option>
         </select><br><br>
 
-        <input type="number" id="itemWidth" placeholder=" Width"><br><br>
+        <input type="number" id="itemWidth" placeholder=" Pack Size"><br><br>
         <input type="number" id="itemQuantity" placeholder=" Quantity"><br><br>
         <input type="number" id="itemRate" placeholder=" Rate"><br><br>
         <input type="number" id="otherCharges" placeholder=" Other Charges"><br><br>
@@ -195,7 +195,7 @@
             var itemAmount = (itemQuantity * itemRate) + otherCharges;
             var item = {
                 name: itemName,
-                width: adjustedWidth,
+                width: width,
                 quantity: itemQuantity,
                 amount: itemAmount
             };
@@ -290,7 +290,7 @@
             <div class="row">
     <div class="col-md-12" style="display: flex; justify-content: space-between; text-align: left;">
         <div class="col-md-3" style="text-align: left;">
-            <p>D No.: ${challanNumber}/PNQ</p>
+            <p>D No.: ${challanNumber}/TRP</p>
         </div>
         <div class="col-md-3" style="text-align: right;">
             <p>DATE ${dateString}</p>
