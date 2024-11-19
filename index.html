@@ -107,7 +107,7 @@
             <option value="TS-1000" data-category="adhesive">TS-1000</option>
         </select><br><br>
 
-        <input type="number" id="itemWidth" placeholder=" Pack Size"><br><br>
+        <input type="number" id="itemWidth" placeholder="Width"><br><br>
         <input type="number" id="itemQuantity" placeholder=" Quantity"><br><br>
         <input type="number" id="itemRate" placeholder=" Rate"><br><br>
         <input type="number" id="otherCharges" placeholder=" Other Charges"><br><br>
@@ -195,7 +195,7 @@
             var itemAmount = (itemQuantity * itemRate) + otherCharges;
             var item = {
                 name: itemName,
-                width: width,
+                width: itemWidth,
                 quantity: itemQuantity,
                 amount: itemAmount
             };
