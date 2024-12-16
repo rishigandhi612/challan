@@ -245,8 +245,8 @@
             var itemsTableHTML = itemsTable.innerHTML;
 
             // Calculate CGST and SGST
-            var cgstAmount = calculateGST(itemsArray, 0.09);
-            var sgstAmount = calculateGST(itemsArray, 0.09);
+            var cgstAmount = calculateGST(itemsArray, 0.18);
+            // var sgstAmount = calculateGST(itemsArray, 0.09);
 
             // Add CGST row
             var cgstRow = itemsTable.insertRow(itemsTable.rows.length);
@@ -257,20 +257,21 @@
 
             // cgstCell1.innerHTML = "";
             cgstCell2.innerHTML = "";
-            cgstCell3.innerHTML = "CGST@9%";
+            cgstCell3.innerHTML = "IGST@18%";
             cgstCell4.innerHTML = cgstAmount.toFixed(2); // Round off to two decimal places
 
             // Add SGST row
-            var sgstRow = itemsTable.insertRow(itemsTable.rows.length);
-            var sgstCell1 = sgstRow.insertCell(0);
-            var sgstCell2 = sgstRow.insertCell(1);
-            var sgstCell3 = sgstRow.insertCell(2);
-            var sgstCell4 = sgstRow.insertCell(3);
+            // var sgstRow = itemsTable.insertRow(itemsTable.rows.length);
+            // var sgstCell1 = sgstRow.insertCell(0);
+            // var sgstCell2 = sgstRow.insertCell(1);
+            // var sgstCell3 = sgstRow.insertCell(2);
+            // var sgstCell4 = sgstRow.insertCell(3);
 
-            sgstCell1.innerHTML = "";
-            sgstCell2.innerHTML = "";
-            sgstCell3.innerHTML = "SGST@9%";
-            sgstCell4.innerHTML = sgstAmount.toFixed(2); // Round off to two decimal places
+            // sgstCell1.innerHTML = "";
+            // sgstCell2.innerHTML = "";
+            // sgstCell3.innerHTML = "SGST@9%";
+            // sgstCell4.innerHTML = sgstAmount.toFixed(2);
+ // Round off to two decimal places
 
             // Add row with Total Amt (INR)
             var totalRow = itemsTable.insertRow(itemsTable.rows.length);
@@ -282,7 +283,8 @@
             totalCell1.innerHTML = "";
             totalCell2.innerHTML = "";
             totalCell3.innerHTML = "<strong>Total Amt (INR):</strong>";
-            var totalAmount = parseFloat(calculateTotalAmount(itemsArray)) + cgstAmount + sgstAmount;
+            var totalAmount = parseFloat(calculateTotalAmount(itemsArray)) + cgstAmount 
+// + sgstAmount;
             totalCell4.innerHTML = `<strong>${Math.round(totalAmount)}/- </strong>`;
             document.getElementById('cnv').innerHTML = `
             <span style="font-size: 10px; font-weight:600;">(ORIGINAL FOR RECIPIENT)</span>
