@@ -1,3 +1,4 @@
+
 @media print {
     body {
         margin: none !important;
@@ -28,7 +29,7 @@
     }
 
     .header {
-
+     
         font-weight: bolder;
         z-index: 1;
         text-align: center;
@@ -37,20 +38,19 @@
     p.footer {
         position: fixed;
         bottom: 5%;
-
+  
         font-weight: 900;
     }
 
     #printBtn {
         display: none;
     }
-
+ 
 }
 
 .output {
     display: none;
 }
-
-.footer {
+.footer{
     display: none;
 }

@@ -11,27 +11,75 @@
 </head>
 
 <body>
-    <div class="container input-fields" id="inputtable" style="text-align: center;">
-        <h2>|| श्री ||</h2>
+    <div class="container" id="inputtable" style="text-align: center; ">
+        <br>|| श्री ||<br><br>
+         <!-- Company Selection -->
+         <select id="companySelect" class="form-select mb-3" onchange="updateCompanyDetails()">
+            <option value="hemant">Hemant Traders</option>
+            <option value="ansales">A N Sales</option>
+        </select>        
         <p>
-            <input type="text" id="challanNumber" placeholder="Challan Number" class="form-control mb-3">
-            <button id="selectDetailsBtn" onclick="selectCustomerDetails()" class="btn btn-warning mb-3">Select Customer
-                Details</button>
-                
-        </p>
-        <div id="customerDetailsInput" style="display: none;">
-            <input type="text" id="customerName" placeholder="Customer Name" class="form-control mb-3">
-            <input type="text" id="customerAddress" placeholder="Customer Address" class="form-control mb-3">
-            <input type="tel" id="customerPhone" placeholder="Customer Phone No" class="form-control mb-3">
-            <input type="text" id="transporterName" placeholder="Transporter" class="form-control mb-3">
-            <input type="text" id="customergstno" placeholder="Customer GST No" class="form-control mb-3">
-            <button onclick="applyManualDetails()" class="btn btn-success mb-3">Apply</button>
+        <div class="form-floating">
+            <input type="text" id="challanNumber" class="form-control my-2 pt-n5" placeholder="Challan Number"> 
+            <label for="challanNumber">Challan Number</label>      
         </div>
-        <label for="itemName" class="form-label">Item Name:</label>
+
+        <select id="customerSelect" class="form-control my-2" onchange="selectCustomerDetails()">
+          <option value="">--Select Customer--</option>
+        </select>
+        
+        <!-- Input fields for selected customer -->
+         <div style="display:none;">
+            <input type="text" id="customerName" placeholder="Customer Name" readonly />
+            <input type="text" id="customerAddress" placeholder="Customer Address" readonly />
+            <input type="text" id="customerPhone" placeholder="Customer Phone" readonly />
+            <input type="text" id="transporterName" placeholder="Transporter Name" readonly />
+            <input type="text" id="customergstno" placeholder="Customer GST" readonly />
+         </div>
+        
+        <!-- Manual Entry Section -->
+        <div id="customerDetailsInput" style="display:none;">
+          <h3>Enter New Customer Details</h3>
+          <div class="form-floating">
+            <input type="text" id="newCustomerName"  class="form-control my-2" placeholder="Customer Name" />
+            <label for="challanNumber">Customer Name</label>    
+          </div>
+          <div class="form-floating">
+            <input type="text" id="newCustomerAddress"  class="form-control my-2" placeholder="Customer Address" />
+            <label for="newCustomerAddress">Customer Address</label>    
+          </div>
+          <div class="form-floating">
+            <input type="text" id="newCustomerPhone"  class="form-control my-2" placeholder="Customer Phone" />
+            <label for="newCustomerPhone">Customer Phone</label>    
+          </div>
+          <div class="form-floating">
+            <input type="text" id="newCustomerTransporter"  class="form-control my-2" placeholder="Transporter Name" />
+            <label for="newCustomerTransporter">Transporter Name</label>    
+          </div>
+          <div class="form-floating">
+            <input type="text" id="newCustomerGst"  class="form-control my-2" placeholder="Customer GST" />
+            <label for="newCustomerGst">Customer GST</label>    
+          </div>
+<!--         
+          <input type="text" id="newCustomerAddress" placeholder="Customer Address" /> -->
+
+          <!-- <input type="text" id="newCustomerPhone" placeholder="Customer Phone" /> -->
+          <!-- <input type="text" id="newCustomerTransporter" placeholder="Transporter Name" /> -->
+          <!-- <input type="text" id="newCustomerGst" placeholder="Customer GST"/> -->
+          <div class="d-grid gap-2">
+          <button onclick="saveNewCustomer()" class="btn btn-secondary my-2" >Save Customer</button>
+        </div>
+        </div>
+
+        <div class="row">
+            <div class="col-4 my-1 pl-5">
+                <label for="itemName">Item Name:</label>
+            </div>
+    <div class="col-8">
         <select id="itemName" class="form-select mb-3">
             <option value="BOPP FILM" data-category="film">BOPP FILM</option>
             <option value="MATT FILM" data-category="film">MATT FILM</option>
-            <option value="23MIC PET FILM" data-category="film">23MIC POLYSTER FILM</option>
+            <option value="23MIC PET FILM" data-category="film">23mic Ultra Clear POLYESTER FILM</option>
             <option value="Thermal Gloss Film" data-category="film">Thermal Gloss Film</option>
             <option value="Thermal Matt Film" data-category="film">Thermal Matt Film</option>
             <option value="17 mic Pearlise Film" data-category="film">17 mic Pearlise Film</option>
@@ -47,66 +95,82 @@
             <option value="HOLO RG GUM" data-category="adhesive">HOLO RG GUM</option>
             <option value="TS-1000" data-category="adhesive">TS-1000</option>
         </select>
-     
-        <input type="number" id="itemWidth" placeholder="Width" class="form-control mb-3">
-        <input type="number" id="itemQuantity" placeholder="Quantity" class="form-control mb-3">
-        <input type="number" id="itemRate" placeholder="Rate" class="form-control mb-3">
-        <input type="number" id="otherCharges" placeholder="Other Charges" class="form-control mb-3">
-      <!-- Add Film Item Button -->
-<button id="addFilmItemToTable" class="btn btn-danger" onclick="addItemToTable('film')">Add Film Item</button>
-
-<!-- Add Adhesive Item Button -->
-<button id="addAdhesiveItemToTable" class="btn btn-primary" onclick="addItemToTable('adhesive')">Add Adhesive Item</button>
-
-        
-        <button id="sb" class="btn btn-primary">Generate Challan</button>
+    </div>
+      
+    </div>
+        <div class="form-floating">
+            <input type="number" class="form-control my-2" id="itemWidth" placeholder="Width">
+            <label for="itemWidth">Width</label>
+        </div>
+        <div class="form-floating">
+            <input type="number" class="form-control my-2" id="itemQuantity" placeholder="Quantity">
+            <label for="itemQuantity">Quantity</label>
+        </div>
+        <div class="form-floating">
+            <input type="number" class="form-control my-2" id="itemRate" placeholder="Rate">
+            <label for="itemRate">Rate</label>
+        </div>
+        <div class="form-floating">
+            <input type="number" class="form-control my-2" id="otherCharges" placeholder="Other Charges">
+            <label for="otherCharges">Other Charges</label>
+        </div>
+        <div class="d-grid gap-2">
+        <input type="button" id="addItem" value="Add Item" class="btn btn-success">
+        <input type="button" id="sb" class="btn btn-primary" value="Generate Challan">
+    </div>
+        </p>
     </div>
 
-    <div class="container output" style="text-align: center;">
+    <div class="container output" style="text-align: center; ">
         <div class="header">
-            <div class="row" style="height: 100%; width: 100%;">
-                <img src="Screen Shot 2023-12-12 at 6.31.48 PM.png" alt="">
-            </div>
+            <img id="headerImage" src="hemant.png" alt="Header Image" style="width: 100%; height: auto;">
             <div class="row">
                 <div class="col-md-12" id="cnv"></div>
             </div>
+           
         </div>
+        <table class="table" id="itemsTable" style="display: none;">
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Width</th>
+                    <th>Quantity</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody id="itemsTableBody"></tbody>
+        </table>
 
-       <!-- Film Items Table -->
-<table class="table" id="filmTable" style="display: none;">
-    <thead>
-        <tr>
-            <th>Item Name</th>
-            <th>Width</th>
-            <th>Quantity</th>
-            <th>Amount</th>
-        </tr>
-    </thead>
-    <tbody id="filmTableBody"></tbody>
-</table>
-
-<!-- Adhesive Items Table -->
-<table class="table" id="adhesiveTable" style="display: none;">
-    <thead>
-        <tr>
-            <th>Item Name</th>
-            <th>Pack Size</th>
-            <th>Quantity</th>
-            <th>Amount</th>
-        </tr>
-    </thead>
-    <tbody id="adhesiveTableBody"></tbody>
-</table>
+        <br><br>
 
     </div>
 
     <p class="footer">
-        <img src="Screen Shot 2023-12-13 at 1.55.35 AM.png" style="width: 80%; height: 80%; text-align: center; margin-left: 7%; padding-left: 7%;" alt="">
+        <img src="Screen Shot 2023-12-13 at 1.55.35 AM.png"
+            style="width: 80%; height: 80%; text-align: center; margin-left: 7%; padding-left: 7%;" alt="">
     </p>
-    <button id="printBtn" onclick="window.print()" class="btn btn-primary">Print</button>
+
+    <button id="printBtn" onclick="window.print()" class="btn btn-danger">Print</button>
+
     <script src="app.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    </script>
+
+    <script>
+        // Function to update header image based on selected company
+        function updateHeaderImage(selectedCompany) {
+            const headerImage = document.getElementById('headerImage');
+            if (selectedCompany === 'ansales') {
+                headerImage.src = 'ansales.png'; // Update to actual path
+            } else if (selectedCompany === 'hemant') {
+                headerImage.src = 'hemant.png'; // Update to actual path
+            }
+        }
+
+        // Set default company
+        document.getElementById('companySelect').value = 'hemant';
+        updateHeaderImage('hemant');
     </script>
 </body>
 
