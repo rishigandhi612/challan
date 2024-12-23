@@ -1,0 +1,56 @@
+@media print {
+    body {
+        margin: none !important;
+        padding: 0% !important;
+    }
+
+    @page {
+        size: A4;
+        margin: none !important;
+        padding: 0% !important;
+    }
+
+    .row {
+        page-break-inside: avoid;
+    }
+
+    .header h1 {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        /* Optional: Display an ellipsis (...) if the text is too long */
+    }
+
+    .container {
+        width: 100% !important;
+        height: 100% !important;
+        position: relative !important;
+    }
+
+    .header {
+
+        font-weight: bolder;
+        z-index: 1;
+        text-align: center;
+    }
+
+    p.footer {
+        position: fixed;
+        bottom: 5%;
+
+        font-weight: 900;
+    }
+
+    #printBtn {
+        display: none;
+    }
+
+}
+
+.output {
+    display: none;
+}
+
+.footer {
+    display: none;
+}

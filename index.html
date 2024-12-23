@@ -5,92 +5,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hemant Traders Challan</title>
+    <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <style>
-        @media print {
-            body {
-                margin: none !important;
-                padding: 0% !important;
-            }
-
-            @page {
-                size: A4;
-                margin: none !important;
-                padding: 0% !important;
-            }
-
-            .row {
-                page-break-inside: avoid;
-            }
-
-            .header h1 {
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                /* Optional: Display an ellipsis (...) if the text is too long */
-            }
-
-            .container {
-                width: 100% !important;
-                height: 100% !important;
-                position: relative !important;
-            }
-
-            .header {
-             
-                font-weight: bolder;
-                z-index: 1;
-                text-align: center;
-            }
-
-            p.footer {
-                position: fixed;
-                bottom: 5%;
-          
-                font-weight: 900;
-            }
-
-            #printBtn {
-                display: none;
-            }
-         
-        }
-
-        .output {
-            display: none;
-        }
-        .footer{
-            display: none;
-        }
-    </style>
-
 </head>
 
 <body>
-
-
-
-    <div class="container Input fields" id="inputtable" style="text-align: center; ">
-        || श्री ||<br><br>
+    <div class="container input-fields" id="inputtable" style="text-align: center;">
+        <h2>|| श्री ||</h2>
         <p>
-            <input type="text" id="challanNumber" placeholder="Challan Number"><br><br>
-            <button id="selectDetailsBtn" onclick="selectCustomerDetails()" class="btn btn-warning">Select Customer
+            <input type="text" id="challanNumber" placeholder="Challan Number" class="form-control mb-3">
+            <button id="selectDetailsBtn" onclick="selectCustomerDetails()" class="btn btn-warning mb-3">Select Customer
                 Details</button>
+                
+        </p>
         <div id="customerDetailsInput" style="display: none;">
-            <input type="text" id="customerName" placeholder=" Customer Name"><br><br>
-            <input type="text" id="customerAddress" placeholder=" Customer Address"><br><br>
-            <input type="tel" id="customerPhone" placeholder=" Customer Phone No"><br><br>
-            <input type="text" id="transporterName" placeholder=" Transporter"><br><br>
-            <input type="text" id="customergstno" placeholder=" Customer GST No"><br><br>
-            <button onclick="applyManualDetails()" class="btn btn-success">Apply</button> <br>
+            <input type="text" id="customerName" placeholder="Customer Name" class="form-control mb-3">
+            <input type="text" id="customerAddress" placeholder="Customer Address" class="form-control mb-3">
+            <input type="tel" id="customerPhone" placeholder="Customer Phone No" class="form-control mb-3">
+            <input type="text" id="transporterName" placeholder="Transporter" class="form-control mb-3">
+            <input type="text" id="customergstno" placeholder="Customer GST No" class="form-control mb-3">
+            <button onclick="applyManualDetails()" class="btn btn-success mb-3">Apply</button>
         </div>
-        <br>
-        <label for="itemName">Item Name:</label>
-        <select id="itemName">
+        <label for="itemName" class="form-label">Item Name:</label>
+        <select id="itemName" class="form-select mb-3">
             <option value="BOPP FILM" data-category="film">BOPP FILM</option>
             <option value="MATT FILM" data-category="film">MATT FILM</option>
-              <option value="23MIC PET FILM" data-category="film">23MIC POLYSTER FILM</option>
+            <option value="23MIC PET FILM" data-category="film">23MIC POLYSTER FILM</option>
             <option value="Thermal Gloss Film" data-category="film">Thermal Gloss Film</option>
             <option value="Thermal Matt Film" data-category="film">Thermal Matt Film</option>
             <option value="17 mic Pearlise Film" data-category="film">17 mic Pearlise Film</option>
@@ -105,279 +46,68 @@
             <option value="TC-777" data-category="adhesive">TC-777</option>
             <option value="HOLO RG GUM" data-category="adhesive">HOLO RG GUM</option>
             <option value="TS-1000" data-category="adhesive">TS-1000</option>
-        </select><br><br>
+        </select>
+     
+        <input type="number" id="itemWidth" placeholder="Width" class="form-control mb-3">
+        <input type="number" id="itemQuantity" placeholder="Quantity" class="form-control mb-3">
+        <input type="number" id="itemRate" placeholder="Rate" class="form-control mb-3">
+        <input type="number" id="otherCharges" placeholder="Other Charges" class="form-control mb-3">
+      <!-- Add Film Item Button -->
+<button id="addFilmItemToTable" class="btn btn-danger" onclick="addItemToTable('film')">Add Film Item</button>
 
-        <input type="number" id="itemWidth" placeholder="Width"><br><br>
-        <input type="number" id="itemQuantity" placeholder=" Quantity"><br><br>
-        <input type="number" id="itemRate" placeholder=" Rate"><br><br>
-        <input type="number" id="otherCharges" placeholder=" Other Charges"><br><br>
-        <input type="button" id="addItem" value="Add Item" class="btn btn-secondary"> <br> <br>
-        <input type="button" id="sb" class="btn btn-primary" value="Generate Challan">
+<!-- Add Adhesive Item Button -->
+<button id="addAdhesiveItemToTable" class="btn btn-primary" onclick="addItemToTable('adhesive')">Add Adhesive Item</button>
 
-        </p>
+        
+        <button id="sb" class="btn btn-primary">Generate Challan</button>
     </div>
-    <div class="container output" style="text-align: center; ">
+
+    <div class="container output" style="text-align: center;">
         <div class="header">
-            <div class="row"  style="height: 100%; width: 100%; ">
-               <img src="Screen Shot 2023-12-12 at 6.31.48 PM.png" alt="">
-               </div>
-        <div class="row">
-            <div class="col-md-12" id="cnv"></div>
-        </div>
+            <div class="row" style="height: 100%; width: 100%;">
+                <img src="Screen Shot 2023-12-12 at 6.31.48 PM.png" alt="">
             </div>
-        <table class="table" id="itemsTable" style="display: none;">
-            <thead>
-                <tr>
-                    <th>Item Name</th>
-                    <th>Width</th>
-                    <th>Quantity</th>
-                    <th>Amount</th>
-                </tr>
-            </thead>
-            <tbody id="itemsTableBody"></tbody>
-        </table>
-       
-        <br><br>
-       
+            <div class="row">
+                <div class="col-md-12" id="cnv"></div>
+            </div>
+        </div>
+
+       <!-- Film Items Table -->
+<table class="table" id="filmTable" style="display: none;">
+    <thead>
+        <tr>
+            <th>Item Name</th>
+            <th>Width</th>
+            <th>Quantity</th>
+            <th>Amount</th>
+        </tr>
+    </thead>
+    <tbody id="filmTableBody"></tbody>
+</table>
+
+<!-- Adhesive Items Table -->
+<table class="table" id="adhesiveTable" style="display: none;">
+    <thead>
+        <tr>
+            <th>Item Name</th>
+            <th>Pack Size</th>
+            <th>Quantity</th>
+            <th>Amount</th>
+        </tr>
+    </thead>
+    <tbody id="adhesiveTableBody"></tbody>
+</table>
+
     </div>
-    <p class="footer"><img src="Screen Shot 2023-12-13 at 1.55.35 AM.png" style="width: 80%; height: 80%; text-align: center; margin-left: 7%; padding-left: 7%;" alt="" srcset="">
+
+    <p class="footer">
+        <img src="Screen Shot 2023-12-13 at 1.55.35 AM.png" style="width: 80%; height: 80%; text-align: center; margin-left: 7%; padding-left: 7%;" alt="">
     </p>
     <button id="printBtn" onclick="window.print()" class="btn btn-primary">Print</button>
+    <script src="app.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
-        </script>
-    <script>
-        var itemsArray = [];
-        var customers = [
-            { name: 'Aditya Industrial Supplier', address: 'Gut No.39, Plot No.8157, Behind Seven Three Heater, CEAT Road, MIDC Waluj Aurangabad -431136.', phone: '9673001214,9834772728', transporter: 'Option Transport Pvt Ltd', gst: '27AJJPB3646H1ZA' },
-            { name: 'S.S.Enterprises', address: '301,Heera Plaza,Near Telephone Exchange,867,C.A.Road,Nagpur - 440008', phone: '9373129863', transporter: 'Shree Jay Roadways', gst: '27AJLPK3004A1ZT' },
-            { name: 'Quality Print & Pack', address: 'N-97/3,MIDC,Jalgaon', phone: '9823292558', transporter: 'Arco Roadways', gst: '27AHHPC6839P2ZP' },
-            { name: 'Ashutosh Printing and Packaging', address: 'Shop No. 5/6, New Bhadrawati Complex, Nr Laxminarayan Talkies, M.I.D.C. Road, Solapur', phone: '9895471712 /8379898405', transporter: 'NavSamata Transport', gst: '27ANJPK1190M1ZN' },
-            { name: 'S S Print Lamination', address: 'Kolhapur', phone: '9766624215', transporter: 'Sandesh Transport', gst: '' },
-            { name: 'Vimal Enterprises', address: '31,Anand Hsg Soc Shahunagar, Godoli, Satara', phone: '9226434388', transporter: 'JayRam Transport', gst: '' },
-            { name: 'Rohit Offset', address: 'Bhutkarwadi,Bhingardive, Savedi Road, Ahmednagar - 414003.', phone: '+91 92253 20870', transporter: 'Jaggi Goods Transport', gst: '27AJMPB0572H1ZC' },
-            { name: 'Quality Screens', address: 'P-74,MIDC,Mirjole,Ratnagiri - 415639', phone: '( +91 ) 9604002117.', transporter: 'Jagruti Transport', gst: '27AAZPJ3191Q1ZM' },
-            { name: 'Vinand Post Print', address: '110/112 Shukrawar Peth Tilak Chowk Solapur - 413000', phone: '( +91 ) 9890277712.', transporter: 'Chandrakant Transport', gst: '27AAVHS8340E1ZM' },
-            { name: 'Sai Packaging Industriaes', address: 'SR NO 1/2 FLAT NO 6 BLDG B NILESH PARK OPPO ADARSHA HOSPITAL KONDHWA BK TAL HAVELI,DIST PUNE', phone: '( +91 ) 9422554364.', transporter: 'Jethabhai Doongarshi Transport Co.', gst: '27AOOPD4005J1Z1' },
-            { name: 'Sapna Industries', address: '#8,Al-Abrar Complex,Near Abrar Masjid, Khareband,Sirvodem, Margoa-Goa - 403601.', phone: '( +91 ) ( 0832 ) 2734091. 9343653776.', transporter: 'Reema Transport Pvt Ltd.', gst: '30AFAPM5966L1ZA' },
-
-            // Add more customers as needed
-        ];
-        var generateChallanClicked = false;
-
-        document.getElementById('addItem').addEventListener('click', addItemToTable);
-        document.getElementById('sb').addEventListener('click', generatechallan);
-
-        function addItemToTable() {
-            if (generateChallanClicked) {
-                alert("Generate Challan button clicked. Cannot add more items.");
-                return;
-            }
-
-            var itemName = document.getElementById('itemName').value;
-            var itemWidth = document.getElementById('itemWidth').value;
-            var itemQuantity = document.getElementById('itemQuantity').value;
-            var itemRate = document.getElementById('itemRate').value;
-
-            // Validation
-            if (itemName === "" || itemQuantity === "") {
-        alert("Item Name and Quantity cannot be empty.");
-        return;
-        }
-  // Check if item is a film type
-    var category = document.getElementById('itemName').selectedOptions[0].getAttribute('data-category');
-
-    if (category === 'film' && itemWidth === "") {
-        alert("Width is required for film types.");
-        return;
-    }
-
-            var otherCharges = parseFloat(document.getElementById('otherCharges').value) || 0;
-            var adjustedWidth = parseFloat(itemWidth) > 60 ? itemWidth + " mm" : itemWidth + '"';
-            var adjustedQuantity = parseFloat(itemQuantity) + 'Kgs';
-            var itemAmount = (itemQuantity * itemRate) + otherCharges;
-            var item = {
-                name: itemName,
-                width: adjustedWidth,
-                quantity: adjustedQuantity,
-                amount: itemAmount
-            };
-
-            itemsArray.push(item);
-
-            // Display table headers
-            document.getElementById('itemsTable').style.display = 'table';
-
-            // Display items in the table
-            var tableBody = document.getElementById('itemsTableBody');
-            var newRow = tableBody.insertRow(tableBody.rows.length);
-            var cell1 = newRow.insertCell(0);
-            var cell2 = newRow.insertCell(1);
-            var cell3 = newRow.insertCell(2);
-            var cell4 = newRow.insertCell(3);
-
-            cell1.innerHTML = itemName;
-            cell2.innerHTML = adjustedWidth;
-            cell3.innerHTML = itemQuantity;
-            cell4.innerHTML = itemAmount.toFixed(2); // Round off to two decimal places
-
-            // Clear input fields
-            // document.getElementById('itemName').value = "";
-            // document.getElementById('itemWidth').value = "";
-            document.getElementById('itemQuantity').value = "";
-            // document.getElementById('itemRate').value = "";
-        }
-
-
-        function generatechallan() {
-            generateChallanClicked = true;
-
-            var challanNumber = document.getElementById('challanNumber').value;
-            var customerName = document.getElementById('customerName').value;
-            var customerAddress = document.getElementById('customerAddress').value;
-            var customerPhone = document.getElementById('customerPhone').value;
-            var transporterName = document.getElementById('transporterName').value;
-            var customerGSTnumber = document.getElementById('customergstno').value;
-            var now = new Date();
-            var day = now.getDate().toString().padStart(2, "0");
-            var month = (now.getMonth() + 1).toString().padStart(2, "0");
-            var year = now.getFullYear().toString().slice(-2);
-            var dateString = day + '-' + month + '-' + '20' + year;
-
-            var itemsTable = document.getElementById('itemsTableBody');
-            var itemsTableHTML = itemsTable.innerHTML;
-
-            // Calculate CGST and SGST
-            var cgstAmount = calculateGST(itemsArray, 0.18);
-            // var sgstAmount = calculateGST(itemsArray, 0.09);
-
-            // Add CGST row
-            var cgstRow = itemsTable.insertRow(itemsTable.rows.length);
-            var cgstCell1 = cgstRow.insertCell(0);
-            var cgstCell2 = cgstRow.insertCell(1);
-            var cgstCell3 = cgstRow.insertCell(2);
-            var cgstCell4 = cgstRow.insertCell(3);
-
-            cgstCell1.innerHTML = "";
-            cgstCell2.innerHTML = "";
-            cgstCell3.innerHTML = "IGST@18%";
-            cgstCell4.innerHTML = cgstAmount.toFixed(2); // Round off to two decimal places
-
-            // Add SGST row
-            // var sgstRow = itemsTable.insertRow(itemsTable.rows.length);
-            // var sgstCell1 = sgstRow.insertCell(0);
-            // var sgstCell2 = sgstRow.insertCell(1);
-            // var sgstCell3 = sgstRow.insertCell(2);
-            // var sgstCell4 = sgstRow.insertCell(3);
-
-            // sgstCell1.innerHTML = "";
-            // sgstCell2.innerHTML = "";
-            // sgstCell3.innerHTML = "SGST@9%";
-            // sgstCell4.innerHTML = sgstAmount.toFixed(2);
- // Round off to two decimal places
-
-            // Add row with Total Amt (INR)
-            var totalRow = itemsTable.insertRow(itemsTable.rows.length);
-            var totalCell1 = totalRow.insertCell(0);
-            var totalCell2 = totalRow.insertCell(1);
-            var totalCell3 = totalRow.insertCell(2);
-            var totalCell4 = totalRow.insertCell(3);
-
-            totalCell1.innerHTML = "";
-            totalCell2.innerHTML = "";
-            totalCell3.innerHTML = "<strong>Total Amt (INR):</strong>";
-            var totalAmount = parseFloat(calculateTotalAmount(itemsArray)) + cgstAmount 
-// + sgstAmount;
-            totalCell4.innerHTML = `<strong>${Math.round(totalAmount)}/- </strong>`;
-            document.getElementById('cnv').innerHTML = `
-            <span style="font-size: 10px; font-weight:600;">(ORIGINAL FOR RECIPIENT)</span>
-            <div class="row">
-    <div class="col-md-12" style="display: flex; justify-content: space-between; text-align: left;">
-        <div class="col-md-3" style="text-align: left;">
-            <p>D No.: ${challanNumber}/TRP</p>
-        </div>
-        <div class="col-md-3" style="text-align: right;">
-            <p>DATE ${dateString}</p>
-        </div>
-    </div>
-</div>
-
-        <div class="row">
-    <div class="col-md-12">
-        <p style="display: inline;">M/S</p>
-        <h4 style="display: inline;">${customerName}</h4>
-    </div>
-</div>
-<h6>${customerAddress ? `Address: ${customerAddress}<br>` : ''}
-    ${customerPhone ? `Contact No: ${customerPhone} <br>` : ''}
-    ${customerGSTnumber ? `GST No: ${customerGSTnumber} <br>` : ''}
-    ${transporterName ? `Transporter: ${transporterName}` : ''}
-</h6>
-
-        <p>RECEIVED THE BELOW MENTIONED IN GOOD ORDER AND CONDITION</p>`
-            // Hide input section
-            document.getElementById('inputtable').style.display = 'none';
-
-            // Show output section
-            document.querySelector('.output').style.display = 'block';
-            document.querySelector('.footer').style.display = 'block';
-            window.print();
-        }
-        function calculateGST(items, rate) {
-            var totalAmount = calculateTotalAmount(items);
-            var gstAmount = totalAmount * rate;
-            return gstAmount;
-        }
-        function calculateTotalAmount(items) {
-            var totalAmount = 0;
-            for (var i = 0; i < items.length; i++) {
-                totalAmount += items[i].amount;
-            }
-            return totalAmount;
-        }
-        function applyManualDetails() {
-            // Retrieve values from input fields and update corresponding elements
-            var customerName = document.getElementById('customerName').value;
-            var customerAddress = document.getElementById('customerAddress').value;
-            var customerPhone = document.getElementById('customerPhone').value;
-            var transporterName = document.getElementById('transporterName').value;
-            var customerGSTnumber = document.getElementById('customergstno').value;
-
-            // Update the input fields with the manual entry details
-            document.getElementById('customerName').value = customerName;
-            document.getElementById('customerAddress').value = customerAddress;
-            document.getElementById('customerPhone').value = customerPhone;
-            document.getElementById('transporterName').value = transporterName;
-            document.getElementById('customergstno').value = customerGSTnumber;
-
-            // Hide the input fields
-            document.getElementById('customerDetailsInput').style.display = 'none';
-        }
-        function selectCustomerDetails() {
-            var options = customers.map((customer, index) => `${index + 1}. ${customer.name}`).join('\n');
-            options += '\n' + (customers.length + 1) + '. Other';
-
-            var option = prompt("Select an option:\n" + options);
-
-            if (option >= 1 && option <= customers.length) {
-                // User selected a predefined customer
-                var selectedCustomer = customers[parseInt(option) - 1];
-
-                // Update the input fields with the selected customer details
-                document.getElementById('customerName').value = selectedCustomer.name;
-                document.getElementById('customerAddress').value = selectedCustomer.address;
-                document.getElementById('customerPhone').value = selectedCustomer.phone;
-                document.getElementById('transporterName').value = selectedCustomer.transporter;
-                document.getElementById('customergstno').value = selectedCustomer.gst;
-            } else if (option == customers.length + 1) {
-                // User selected 'Other', show input fields for manual entry
-                document.getElementById('customerDetailsInput').style.display = 'block';
-            } else {
-                alert("Invalid option");
-            }
-        }
     </script>
 </body>
-
 
 </html>
