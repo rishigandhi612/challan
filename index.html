@@ -129,7 +129,7 @@
             <thead>
                 <tr>
                     <th>Item Name</th>
-                    <th>Width</th>
+                    <th>PACK SIZE</th>
                     <th>Quantity</th>
                     <th>Amount</th>
                 </tr>
@@ -193,12 +193,13 @@
     }
 
             var otherCharges = parseFloat(document.getElementById('otherCharges').value) || 0;
-            var adjustedWidth = parseFloat(itemWidth) > 60 ? itemWidth + " mm" : itemWidth + '"';
+            var adjustedWidth = parseFloat(itemWidth) > 60 ? itemWidth + " mm" : itemWidth + 'Kgs';
+            var adjustedQuantity = itemQuantity + 'Kgs';
             var itemAmount = (itemQuantity * itemRate) + otherCharges;
             var item = {
                 name: itemName,
                 width: adjustedWidth,
-                quantity: itemQuantity,
+                quantity: adjustedQuantity,
                 amount: itemAmount
             };
 
