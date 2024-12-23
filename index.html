@@ -158,6 +158,8 @@
             { name: 'Rohit Offset', address: 'Bhutkarwadi,Bhingardive, Savedi Road, Ahmednagar - 414003.', phone: '+91 92253 20870', transporter: 'Jaggi Goods Transport', gst: '27AJMPB0572H1ZC' },
             { name: 'Quality Screens', address: 'P-74,MIDC,Mirjole,Ratnagiri - 415639', phone: '( +91 ) 9604002117.', transporter: 'Jagruti Transport', gst: '27AAZPJ3191Q1ZM' },
             { name: 'Vinand Post Print', address: '110/112 Shukrawar Peth Tilak Chowk Solapur - 413000', phone: '( +91 ) 9890277712.', transporter: 'Chandrakant Transport', gst: '27AAVHS8340E1ZM' },
+            { name: 'Sai Packaging Industriaes', address: 'SR NO 1/2 FLAT NO 6 BLDG B NILESH PARK OPPO ADARSHA HOSPITAL KONDHWA BK TAL HAVELI,DIST PUNE', phone: '( +91 ) 9422554364.', transporter: 'Jethabhai Doongarshi Transport Co.', gst: '27AOOPD4005J1Z1' },
+            { name: 'Sapna Industries', address: '#8,Al-Abrar Complex,Near Abrar Masjid, Khareband,Sirvodem, Margoa-Goa - 403601.', phone: '( +91 ) ( 0832 ) 2734091. 9343653776.', transporter: 'Reema Transport Pvt Ltd.', gst: '30AFAPM5966L1ZA' },
 
             // Add more customers as needed
         ];
@@ -245,8 +247,8 @@
             var itemsTableHTML = itemsTable.innerHTML;
 
             // Calculate CGST and SGST
-            var cgstAmount = calculateGST(itemsArray, 0.18);
-            // var sgstAmount = calculateGST(itemsArray, 0.09);
+            var cgstAmount = calculateGST(itemsArray, 0.09);
+            var sgstAmount = calculateGST(itemsArray, 0.09);
 
             // Add CGST row
             var cgstRow = itemsTable.insertRow(itemsTable.rows.length);
@@ -255,22 +257,22 @@
             var cgstCell3 = cgstRow.insertCell(2);
             var cgstCell4 = cgstRow.insertCell(3);
 
-            // cgstCell1.innerHTML = "";
+            cgstCell1.innerHTML = "";
             cgstCell2.innerHTML = "";
-            cgstCell3.innerHTML = "IGST@18%";
+            cgstCell3.innerHTML = "CGST@9%";
             cgstCell4.innerHTML = cgstAmount.toFixed(2); // Round off to two decimal places
 
             // Add SGST row
-            // var sgstRow = itemsTable.insertRow(itemsTable.rows.length);
-            // var sgstCell1 = sgstRow.insertCell(0);
-            // var sgstCell2 = sgstRow.insertCell(1);
-            // var sgstCell3 = sgstRow.insertCell(2);
-            // var sgstCell4 = sgstRow.insertCell(3);
+            var sgstRow = itemsTable.insertRow(itemsTable.rows.length);
+            var sgstCell1 = sgstRow.insertCell(0);
+            var sgstCell2 = sgstRow.insertCell(1);
+            var sgstCell3 = sgstRow.insertCell(2);
+            var sgstCell4 = sgstRow.insertCell(3);
 
-            // sgstCell1.innerHTML = "";
-            // sgstCell2.innerHTML = "";
-            // sgstCell3.innerHTML = "SGST@9%";
-            // sgstCell4.innerHTML = sgstAmount.toFixed(2);
+            sgstCell1.innerHTML = "";
+            sgstCell2.innerHTML = "";
+            sgstCell3.innerHTML = "SGST@9%";
+            sgstCell4.innerHTML = sgstAmount.toFixed(2);
  // Round off to two decimal places
 
             // Add row with Total Amt (INR)
