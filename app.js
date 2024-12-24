@@ -86,7 +86,7 @@ var customers = [
   // Add more customers as needed
 ];
 var generateChallanClicked = false;
-var isHemantTraders = false; // Default to A N Sales
+// var isHemantTraders = false; // Default to A N Sales
 
 // Determine if Hemant Traders or A N Sales is selected
 var selectedOption = document.getElementById("companySelect").value;
@@ -94,6 +94,8 @@ var isHemantTraders = selectedOption === "hemant"; // Check if Hemant Traders is
 
 document.getElementById("addItem").addEventListener("click", addItemToTable);
 document.getElementById("sb").addEventListener("click", generatechallan);
+document.getElementById("companySelect").addEventListener("change", updateCompanyDetails);
+
 
 function addItemToTable() {
   if (generateChallanClicked) {
@@ -175,6 +177,11 @@ function addItemToTable() {
 
 function generatechallan() {
     console.log("Generate button clicked");
+    if (itemQuantity <= 0 || itemRate <= 0) {
+      alert("Quantity and Rate must be positive numbers.");
+      return;
+  }
+  
     // Show alert for Hemant Traders
   if (isHemantTraders) {
     alert("GST will be applied for Hemant Traders.");
@@ -301,21 +308,14 @@ function calculateTotalAmount(items) {
 
 // Function to calculate GST
 function calculateGST(items) {
-    const gstRate = 0.18; // 18% GST
-    let totalAmount = 0;
-  
-    // Sum the total amount from items
-    items.forEach(item => {
-      totalAmount = item.amount;
-    });
-  
-    let gstAmount = totalAmount * gstRate;
-    let cgstAmount = gstAmount / 2;
-    let sgstAmount = cgstAmount; // CGST and SGST are equal
-  
-    return { cgstAmount, sgstAmount }; // Return CGST and SGST as an object
-  }
-  
+  const gstRate = 0.18; // 18% GST
+  let totalAmount = items.reduce((sum, item) => sum + item.amount, 0);
+  let gstAmount = totalAmount * gstRate;
+  let cgstAmount = gstAmount / 2;
+  let sgstAmount = cgstAmount;
+  return { cgstAmount, sgstAmount };
+}
+
 
 function applyManualDetails() {
   // Retrieve values from input fields and update corresponding elements
@@ -425,13 +425,9 @@ function updateCompanyDetails() {
 
 function updateHeaderImage(selectedCompany) {
   const headerImage = document.getElementById("headerImage");
-
-  if (selectedCompany === "ansales") {
-    headerImage.src = "path/to/ansales.png"; // Replace with correct image path
-  } else if (selectedCompany === "hemant") {
-    headerImage.src = "path/to/hemant.png"; // Replace with correct image path
-  }
+  headerImage.src = selectedCompany === "ansales" ? "../ansales.png" : "../hemant.png";
 }
+
 
 function applyGSTBasedOnCompany(selectedCompany) {
   if (selectedCompany === "hemant") {

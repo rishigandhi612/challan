@@ -1,16 +1,14 @@
-
 @media print {
     body {
-        margin: none !important;
-        padding: 0% !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
 
     @page {
         size: A4;
-        margin: none !important;
-        padding: 0% !important;
+        margin: 10mm !important;
     }
-
+    
     .row {
         page-break-inside: avoid;
     }
@@ -18,18 +16,16 @@
     .header h1 {
         white-space: nowrap;
         overflow: hidden;
-        text-overflow: ellipsis;
-        /* Optional: Display an ellipsis (...) if the text is too long */
+        text-overflow: ellipsis; /* Optional */
     }
 
     .container {
         width: 100% !important;
-        height: 100% !important;
+        height: auto !important;
         position: relative !important;
     }
 
     .header {
-     
         font-weight: bolder;
         z-index: 1;
         text-align: center;
@@ -37,20 +33,22 @@
 
     p.footer {
         position: fixed;
-        bottom: 5%;
-  
+        bottom: 0; /* Stick the footer to the bottom */
+        width: 100%; /* Ensure it spans the full width */
         font-weight: 900;
+        background-color: white; /* Ensure it's visible */
+        text-align: center;
     }
 
     #printBtn {
         display: none;
     }
- 
 }
 
 .output {
     display: none;
 }
-.footer{
+
+.footer {
     display: none;
 }
