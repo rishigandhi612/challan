@@ -82,6 +82,14 @@ var customers = [
     transporter: "Reema Transport Pvt Ltd.",
     gst: "30AFAPM5966L1ZA",
   },
+  {
+    name: "Kohli Export Packing (I) Pvt Ltd",
+    address:
+      "Bhosari Godown Booking",
+    phone: "9420699675",
+    transporter: "ACPL",
+    gst: "27AABCK5441K1ZF",
+  },
 
   // Add more customers as needed
 ];
