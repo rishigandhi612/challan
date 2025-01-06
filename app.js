@@ -269,16 +269,16 @@ weightCell4.innerHTML = `<strong>₹${totalItemAmount.toFixed(2)}</strong>`;// 2
       cgstCell3.innerHTML = "IGST@18%";
       cgstCell4.innerHTML = cgstAmount.toFixed(2); // Round off to two decimal places
 
-      var sgstRow = itemsTable.insertRow(itemsTable.rows.length);
-      var sgstCell1 = sgstRow.insertCell(0);
-      var sgstCell2 = sgstRow.insertCell(1);
-      var sgstCell3 = sgstRow.insertCell(2);
-      var sgstCell4 = sgstRow.insertCell(3);
+      // var sgstRow = itemsTable.insertRow(itemsTable.rows.length);
+      // var sgstCell1 = sgstRow.insertCell(0);
+      // var sgstCell2 = sgstRow.insertCell(1);
+      // var sgstCell3 = sgstRow.insertCell(2);
+      // var sgstCell4 = sgstRow.insertCell(3);
 
-      sgstCell1.innerHTML = "";
-      sgstCell2.innerHTML = "ADD:";
-      sgstCell3.innerHTML = "SGST@9%";
-      sgstCell4.innerHTML = sgstAmount.toFixed(2); // Round off to two decimal places
+      // sgstCell1.innerHTML = "";
+      // sgstCell2.innerHTML = "ADD:";
+      // sgstCell3.innerHTML = "SGST@9%";
+      // sgstCell4.innerHTML = sgstAmount.toFixed(2); // Round off to two decimal places
   }
 
   // Add row with Total Amt (INR)
