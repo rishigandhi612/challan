@@ -220,8 +220,8 @@ function generatechallan() {
   }
 
   // Debugging: Log calculated CGST and SGST amounts
-  console.log("CGST Amount: ", cgstAmount);
-  console.log("SGST Amount: ", sgstAmount);
+  // console.log("CGST Amount: ", cgstAmount);
+  // console.log("SGST Amount: ", sgstAmount);
 
   // Calculate total weight
   var totalWeight = itemsArray.reduce((total, item) => {
@@ -266,19 +266,19 @@ weightCell4.innerHTML = `<strong>₹${totalItemAmount.toFixed(2)}</strong>`;// 2
 
       cgstCell1.innerHTML = "";
       cgstCell2.innerHTML = "ADD:";
-      cgstCell3.innerHTML = "IGST@18%";
+      cgstCell3.innerHTML = "CGST@9%";
       cgstCell4.innerHTML = cgstAmount.toFixed(2); // Round off to two decimal places
 
-      // var sgstRow = itemsTable.insertRow(itemsTable.rows.length);
-      // var sgstCell1 = sgstRow.insertCell(0);
-      // var sgstCell2 = sgstRow.insertCell(1);
-      // var sgstCell3 = sgstRow.insertCell(2);
-      // var sgstCell4 = sgstRow.insertCell(3);
+      var sgstRow = itemsTable.insertRow(itemsTable.rows.length);
+      var sgstCell1 = sgstRow.insertCell(0);
+      var sgstCell2 = sgstRow.insertCell(1);
+      var sgstCell3 = sgstRow.insertCell(2);
+      var sgstCell4 = sgstRow.insertCell(3);
 
-      // sgstCell1.innerHTML = "";
-      // sgstCell2.innerHTML = "ADD:";
-      // sgstCell3.innerHTML = "SGST@9%";
-      // sgstCell4.innerHTML = sgstAmount.toFixed(2); // Round off to two decimal places
+      sgstCell1.innerHTML = "";
+      sgstCell2.innerHTML = "ADD:";
+      sgstCell3.innerHTML = "SGST@9%";
+      sgstCell4.innerHTML = sgstAmount.toFixed(2); // Round off to two decimal places
   }
 
   // Add row with Total Amt (INR)
@@ -293,8 +293,7 @@ weightCell4.innerHTML = `<strong>₹${totalItemAmount.toFixed(2)}</strong>`;// 2
   totalCell3.innerHTML = "<strong>Total Amt (INR):</strong>";
 
   // Calculate total amount including GST (if applicable)
-  var totalAmount = totalItemAmount + cgstAmount 
-// + sgstAmount;
+  var totalAmount = totalItemAmount + cgstAmount + sgstAmount;
 
   totalCell4.innerHTML = `<strong>${Math.round(totalAmount)}/-</strong>`;
 
@@ -349,7 +348,7 @@ function calculateGST(items) {
   const gstRate = 0.18; // 18% GST
   let totalAmount = items.reduce((sum, item) => sum + item.amount, 0);
   let gstAmount = totalAmount * gstRate;
-  let cgstAmount = gstAmount ;
+  let cgstAmount = gstAmount/2 ;
   let sgstAmount = cgstAmount;
   return { cgstAmount, sgstAmount };
 }
