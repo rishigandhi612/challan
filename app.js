@@ -266,7 +266,7 @@ weightCell4.innerHTML = `<strong>₹${totalItemAmount.toFixed(2)}</strong>`;// 2
 
       cgstCell1.innerHTML = "";
       cgstCell2.innerHTML = "ADD:";
-      cgstCell3.innerHTML = "CGST@9%";
+      cgstCell3.innerHTML = "IGST@18%";
       cgstCell4.innerHTML = cgstAmount.toFixed(2); // Round off to two decimal places
 
       var sgstRow = itemsTable.insertRow(itemsTable.rows.length);
@@ -348,7 +348,7 @@ function calculateGST(items) {
   const gstRate = 0.18; // 18% GST
   let totalAmount = items.reduce((sum, item) => sum + item.amount, 0);
   let gstAmount = totalAmount * gstRate;
-  let cgstAmount = gstAmount / 2;
+  let cgstAmount = gstAmount ;
   let sgstAmount = cgstAmount;
   return { cgstAmount, sgstAmount };
 }
