@@ -293,7 +293,8 @@ weightCell4.innerHTML = `<strong>₹${totalItemAmount.toFixed(2)}</strong>`;// 2
   totalCell3.innerHTML = "<strong>Total Amt (INR):</strong>";
 
   // Calculate total amount including GST (if applicable)
-  var totalAmount = totalItemAmount + cgstAmount + sgstAmount;
+  var totalAmount = totalItemAmount + cgstAmount 
+// + sgstAmount;
 
   totalCell4.innerHTML = `<strong>${Math.round(totalAmount)}/-</strong>`;
 
