@@ -207,21 +207,81 @@ function generatechallan() {
 
   var itemsTable = document.getElementById("itemsTableBody");
 
-  // Declare GST amounts (initialize to 0)
+  // Declare tax amounts
+  var igstAmount = 0;
   var cgstAmount = 0;
   var sgstAmount = 0;
 
-  // Apply GST if Hemant Traders
-  if (isHemantTraders) {
-      // Calculate CGST and SGST for Hemant Traders (18% GST, split as 9% CGST and 9% SGST)
-      const gstData = calculateGST(itemsArray);
-      cgstAmount = gstData.cgstAmount;
-      sgstAmount = gstData.sgstAmount;
+ // Calculate total item amount
+ var totalItemAmount = calculateTotalAmount(itemsArray);
+ // Determine GST type based on company and GST number
+ if (isHemantTraders && customerGSTnumber) {
+  const gstRate = 0.18; // 18% GST
+  if (!customerGSTnumber.startsWith("27")) {
+    // Apply IGST
+    igstAmount = totalItemAmount * gstRate;
+  } else {
+    // Apply CGST and SGST
+    cgstAmount = (totalItemAmount * gstRate) / 2;
+    sgstAmount = cgstAmount;
   }
+}
 
-  // Debugging: Log calculated CGST and SGST amounts
-  console.log("CGST Amount: ", cgstAmount);
-  console.log("SGST Amount: ", sgstAmount);
+ // Calculate total amount including taxes
+ var totalAmount = totalItemAmount + igstAmount + cgstAmount + sgstAmount;
+
+  // Display Total Weight and Total Amount (before GST)
+  var totalWeight = itemsArray.reduce((total, item) => total + parseFloat(item.quantity) || 0, 0);
+  var weightRow = itemsTable.insertRow(itemsTable.rows.length);
+  weightRow.innerHTML = `
+    <td></td>
+    <td><strong>TOTAL:</strong></td>
+    <td><strong>${totalWeight.toFixed(3)} Kgs</strong></td>
+    <td><strong>₹${totalItemAmount.toFixed(2)}</strong></td>
+  `;
+  // Add IGST row if applicable
+  if (igstAmount > 0) {
+    var igstRow = itemsTable.insertRow(itemsTable.rows.length);
+    igstRow.innerHTML = `
+      <td></td>
+      <td>ADD:</td>
+      <td>IGST @ 18%</td>
+      <td>₹${igstAmount.toFixed(2)}</td>
+    `;
+  }
+// Add CGST/SGST rows if applicable
+if (cgstAmount > 0 && sgstAmount > 0) {
+  var cgstRow = itemsTable.insertRow(itemsTable.rows.length);
+  cgstRow.innerHTML = `
+    <td></td>
+    <td>ADD:</td>
+    <td>CGST @ 9%</td>
+    <td>₹${cgstAmount.toFixed(2)}</td>
+  `;
+  var sgstRow = itemsTable.insertRow(itemsTable.rows.length);
+  sgstRow.innerHTML = `
+    <td></td>
+    <td>ADD:</td>
+    <td>SGST @ 9%</td>
+    <td>₹${sgstAmount.toFixed(2)}</td>
+  `;
+} // Add row for Total Amount (INR)
+var totalRow = itemsTable.insertRow(itemsTable.rows.length);
+totalRow.innerHTML = `
+  <td></td>
+  <td></td>
+  <td><strong>Total Amt (INR):</strong></td>
+  <td><strong>₹${Math.round(totalAmount)}/-</strong></td>
+`;
+
+// Debugging
+console.log("Total Weight:", totalWeight);
+console.log("Total Item Amount (Before GST):", totalItemAmount);
+console.log("CGST Amount:", cgstAmount);
+console.log("SGST Amount:", sgstAmount);
+console.log("IGST Amount:", igstAmount);
+console.log("Total Amount:", totalAmount);
+
 
   // Calculate total weight
   var totalWeight = itemsArray.reduce((total, item) => {
@@ -243,59 +303,10 @@ document.getElementById('cnv').innerHTML = `
 `;
 console.log("Items Array: ", itemsArray);
 
-// Add rows for Total Weight and Total Amount (Before GST) above CGST row
-var weightRow = itemsTable.insertRow(itemsTable.rows.length);
-var weightCell1 = weightRow.insertCell(0);
-var weightCell2 = weightRow.insertCell(1);
-var weightCell3 = weightRow.insertCell(2);
-var weightCell4 = weightRow.insertCell(3);
 
-weightCell1.innerHTML = "";
-weightCell2.innerHTML = "TOTAL:";
-weightCell3.innerHTML = `<strong>${totalWeight.toFixed(3)} Kgs</strong>`; // 3 decimal places for total weight
-weightCell4.innerHTML = `<strong>₹${totalItemAmount.toFixed(2)}</strong>`;// 2 decimal places for amount
-
-
-  // Add rows for CGST and SGST if Hemant Traders
-  if (isHemantTraders) {
-      var cgstRow = itemsTable.insertRow(itemsTable.rows.length);
-      var cgstCell1 = cgstRow.insertCell(0);
-      var cgstCell2 = cgstRow.insertCell(1);
-      var cgstCell3 = cgstRow.insertCell(2);
-      var cgstCell4 = cgstRow.insertCell(3);
-
-      cgstCell1.innerHTML = "";
-      cgstCell2.innerHTML = "ADD:";
-      cgstCell3.innerHTML = "CGST@9%";
-      cgstCell4.innerHTML = cgstAmount.toFixed(2); // Round off to two decimal places
-
-      var sgstRow = itemsTable.insertRow(itemsTable.rows.length);
-      var sgstCell1 = sgstRow.insertCell(0);
-      var sgstCell2 = sgstRow.insertCell(1);
-      var sgstCell3 = sgstRow.insertCell(2);
-      var sgstCell4 = sgstRow.insertCell(3);
-
-      sgstCell1.innerHTML = "";
-      sgstCell2.innerHTML = "ADD:";
-      sgstCell3.innerHTML = "SGST@9%";
-      sgstCell4.innerHTML = sgstAmount.toFixed(2); // Round off to two decimal places
-  }
-
-  // Add row with Total Amt (INR)
-  var totalRow = itemsTable.insertRow(itemsTable.rows.length);
-  var totalCell1 = totalRow.insertCell(0);
-  var totalCell2 = totalRow.insertCell(1);
-  var totalCell3 = totalRow.insertCell(2);
-  var totalCell4 = totalRow.insertCell(3);
-
-  totalCell1.innerHTML = "";
-  totalCell2.innerHTML = "";
-  totalCell3.innerHTML = "<strong>Total Amt (INR):</strong>";
 
   // Calculate total amount including GST (if applicable)
   var totalAmount = totalItemAmount + cgstAmount + sgstAmount;
-
-  totalCell4.innerHTML = `<strong>${Math.round(totalAmount)}/-</strong>`;
 
   // Debugging: Log the total weight and total amount before GST
   console.log("Total Weight: ", totalWeight);
