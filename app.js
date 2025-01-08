@@ -141,11 +141,11 @@ function addItemToTable() {
   var itemAmount = itemQuantity * itemRate + otherCharges;
 
   // Apply GST if Hemant Traders is selected
-  if (isHemantTraders) {
-    const gstRate = 0.18; // 18% GST
-    const gstAmount = itemAmount * gstRate;
-    itemAmount += gstAmount;
-  }
+  // if (isHemantTraders) {
+  //   const gstRate = 0.18; // 18% GST
+  //   const gstAmount = itemAmount * gstRate;
+  //   itemAmount += gstAmount;
+  // }
 
   // Debugging
   console.log("Item Amount (after GST, if applicable):", itemAmount);
@@ -220,8 +220,8 @@ function generatechallan() {
   }
 
   // Debugging: Log calculated CGST and SGST amounts
-  // console.log("CGST Amount: ", cgstAmount);
-  // console.log("SGST Amount: ", sgstAmount);
+  console.log("CGST Amount: ", cgstAmount);
+  console.log("SGST Amount: ", sgstAmount);
 
   // Calculate total weight
   var totalWeight = itemsArray.reduce((total, item) => {
