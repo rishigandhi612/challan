@@ -79,7 +79,7 @@ var customers = [
     address:
       "#8,Al-Abrar Complex,Near Abrar Masjid, Khareband,Sirvodem, Margoa-Goa - 403601.",
     phone: "( +91 ) ( 0832 ) 2734091. 9343653776.",
-    transporter: "Reema Transport Pvt Ltd.",
+    transporter: "Goa Express Cargo Pvt Ltd.",
     gst: "30AFAPM5966L1ZA",
   },
     {
