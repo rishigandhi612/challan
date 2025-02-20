@@ -75,7 +75,7 @@ var customers = [
     gst: "27AOOPD4005J1Z1",
   },
    {
-    name: "Kohli Industries",
+    name: "Kohli Export Packaging (I) Pvt. Ltd.",
     address: "30/B & 31/A/2B, K.S.Kohli Marg, Mumbai-Pune Road,Phugewadi, Dapodi, Pune – 411012.",
     phone: "(020) 27145643 , ( +91 ) 9822059500",
     transporter: "Avinash Cargo Pvt Ltd. Bhosari Godown Booking",
