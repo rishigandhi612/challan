@@ -79,7 +79,7 @@ var customers = [
     address: "30/B & 31/A/2B, K.S.Kohli Marg, Mumbai-Pune Road,Phugewadi, Dapodi, Pune – 411012.",
     phone: "(020) 27145643 , ( +91 ) 9822059500",
     transporter: "Avinash Cargo Pvt Ltd. Bhosari Godown Booking",
-    gst: "30AFAPM5966L1ZA",
+    gst: "27AABCK5441K1ZF",
   },
   {
     name: "Sapna Industries",
@@ -87,7 +87,7 @@ var customers = [
       "#8,Al-Abrar Complex,Near Abrar Masjid, Khareband,Sirvodem, Margoa-Goa - 403601.",
     phone: "( +91 ) ( 0832 ) 2734091. 9343653776.",
     transporter: "Goa Express Cargo Pvt Ltd.",
-    gst: "27AABCK5441K1ZF",
+    gst: "30AFAPM5966L1ZA",
   },
     {
     name: "Sonali suppliers",
