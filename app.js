@@ -88,6 +88,13 @@ var customers = [
     phone: "( +91 ) ( 0832 ) 2734091. 9343653776.",
     transporter: "Goa Express Cargo Pvt Ltd.",
     gst: "30AFAPM5966L1ZA",
+  }, {
+    name: "Shri Gurukrupa Printers",
+    address:
+      "Saileela Hospital Basement,Near Anglo Undulating High School,Jalgaon - 425001.",
+    phone: "9823399961",
+    transporter: "Ajanta Roadlines",
+    gst: "27AOAPA0135L1ZF",
   },
     {
     name: "Sonali suppliers",
