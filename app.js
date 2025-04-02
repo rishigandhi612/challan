@@ -112,6 +112,14 @@ var customers = [
     transporter: "Manohar Transport",
     gst: "",
   },
+ {
+    name: "Datta Xerox",
+    address:
+      "Jamkhed, Dist Ahilyanagar",
+    phone: "+91 83084 24041",
+    transporter: "Manohar Transport",
+    gst: "",
+  },
 
   // Add more customers as needed
 ];
