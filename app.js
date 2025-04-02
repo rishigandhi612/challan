@@ -120,6 +120,14 @@ var customers = [
     transporter: "Manohar Transport",
     gst: "",
   },
+ {
+    name: "Runa Graphics",
+    address:
+      "Part No 1-2/1, S No 64, Behind Trimurti Hospital, Sinhgad Rd,near Suvasini Mangal Karyalaya, Vadgaon Budruk,Pune",
+    phone: "02024390019",
+    transporter: "JD Transport",
+    gst: "27ABQPP0921J1ZD",
+  },
 
   // Add more customers as needed
 ];
