@@ -104,6 +104,14 @@ var customers = [
     transporter: "Jaggi Goods Carrier",
     gst: "",
   },
+   {
+    name: "Trimurti Offset",
+    address:
+      "Jamkhed, Dist Ahilyanagar",
+    phone: "+91 94032 23060",
+    transporter: "Manohar Transport",
+    gst: "",
+  },
 
   // Add more customers as needed
 ];
