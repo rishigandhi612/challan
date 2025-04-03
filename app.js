@@ -128,6 +128,14 @@ var customers = [
     transporter: "JD Transport",
     gst: "27ABQPP0921J1ZD",
   },
+ {
+    name: "Balaji Packaging ( Manjari - TC777)",
+    address:
+      "Sitaram Park, Godbole Vasti,Manjari bk,Tal - Haveli, Dist - Pune",
+    phone: "9527414545/9689945653",
+    transporter: "JD Transport",
+    gst: "27AAOFB0109M1ZE",
+  },
 
   // Add more customers as needed
 ];
