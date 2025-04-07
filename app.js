@@ -135,7 +135,13 @@ var customers = [
     phone: "9527414545/9689945653",
     transporter: "JD Transport",
     gst: "27AAOFB0109M1ZE",
-  },
+  }, {
+    name: "Shree Samarth Binders and Lamination",
+    address: "Solapur",
+    phone: "( +91 ) 96656 42002.",
+    transporter: "Chandrakant Transport",
+    gst: "",
+  }
 
   // Add more customers as needed
 ];
