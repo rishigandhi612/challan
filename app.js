@@ -141,6 +141,13 @@ var customers = [
     phone: "( +91 ) 96656 42002.",
     transporter: "Chandrakant Transport",
     gst: "",
+  },
+  {
+    name: "AN SALES",
+    address: "C/O Hemant Traders ,Sadashiv Peth, Pune - 411030",
+    phone: "( +91 ) 94206 99675.",
+    transporter: "Shree Jai Malhar Transport Services",
+    gst: "",
   }
 
   // Add more customers as needed
