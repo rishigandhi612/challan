@@ -154,6 +154,12 @@ var customers = [
     phone: "+91 9890232309",
     transporter: "Vaibhav Road Lines",
     gst: "27AJMPB0572H1ZC",
+  }, {
+    name: "Kumar Quality Printer",
+    address: "1325/6 ,Nr Dudhane Bolts, Shivaji Udhyamnagar, Kolhapur",
+    phone: "( +91 ) 9850956118 / 7028200362.",
+    transporter: "JayRam Transport / Ashray Travels",
+    gst: "",
   },
 
   // Add more customers as needed
