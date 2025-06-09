@@ -148,7 +148,13 @@ var customers = [
     phone: "( +91 ) 94206 99675.",
     transporter: "Shree Jai Malhar Transport Services",
     gst: "",
-  }
+  }, {
+    name: "3R ECO PANEL AND ROOFING",
+    address: "S.no 36 plot no 17- 25 Pisloi , Pune, Maharashtra, 411048",
+    phone: "+91 9890232309",
+    transporter: "Vaibhav Road Lines",
+    gst: "27AJMPB0572H1ZC",
+  },
 
   // Add more customers as needed
 ];
