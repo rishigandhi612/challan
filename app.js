@@ -161,6 +161,20 @@ var customers = [
     transporter: "JayRam Transport / Ashray Travels",
     gst: "",
   },
+   {
+    name: "Pankaj Arts",
+    address: "Shop No. F21,Kolhapur Udyam Co Operative SOCIETY LTD,Y.P.Powar Nagar,Kolhapur,Maharashtra 416012",
+    phone: "( +91 ) 9623243499",
+    transporter: "JayRam Transport",
+    gst: "",
+  },
+   {
+    name: "Shree Print Coaters Arts",
+    address: "Kolhapur",
+    phone: "( +91 ) 8087253028",
+    transporter: "JayRam Transport",
+    gst: "",
+  },
 
   // Add more customers as needed
 ];
