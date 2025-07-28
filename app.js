@@ -174,7 +174,13 @@ var customers = [
     phone: "( +91 ) 8087253028",
     transporter: "JayRam Transport",
     gst: "",
-  },
+  },   {
+    name: "Sai Lamination",
+    address: "Kolhapur",
+    phone: "( +91 ) 8007484990 / 9579492627",
+    transporter: "Sandesh Transport",
+    gst: "",
+  }
 
   // Add more customers as needed
 ];
