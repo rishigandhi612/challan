@@ -180,6 +180,13 @@ var customers = [
     phone: "( +91 ) 8007484990 / 9579492627",
     transporter: "Sandesh Transport",
     gst: "",
+  },
+    {
+    name: "Durga Lamination",
+    address: "Solapur",
+    phone: "( +91 ) 9822807801 / 9021766526",
+    transporter: "NavSampata Transport",
+    gst: "",
   }
 
   // Add more customers as needed
