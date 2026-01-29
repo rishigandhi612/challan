@@ -187,6 +187,12 @@ var customers = [
     phone: "( +91 ) 9822807801 / 9021766526",
     transporter: "NavSampata Transport",
     gst: "",
+  },   {
+    name: "Eminence Graphics",
+    address: "Jalgaon",
+    phone: "( +91 ) 9422780809",
+    transporter: "Jalgaon Transport",
+    gst: "",
   }
 
   // Add more customers as needed
