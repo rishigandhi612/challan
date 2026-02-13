@@ -193,6 +193,12 @@ var customers = [
     phone: "( +91 ) 9422780809",
     transporter: "Jalgaon Transport",
     gst: "",
+  },   {
+    name: "Sandeep Arts",
+    address: "Ahilyanagar",
+    phone: "( +91 ) 9225252516",
+    transporter: "Jaggi Goods Carrier",
+    gst: "27BIXPS4074E1ZM",
   }
 
   // Add more customers as needed
