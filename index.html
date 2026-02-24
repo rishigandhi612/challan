@@ -18,6 +18,12 @@
             <option value="hemant">Hemant Traders</option>
             <option value="ansales">A N Sales</option>
         </select>
+        <div class="form-check text-start mb-3">
+            <input class="form-check-input" type="checkbox" id="showHeader" checked>
+            <label class="form-check-label" for="showHeader">
+                Print with header
+            </label>
+        </div>
         <p>
         <div class="form-floating">
             <input type="text" id="challanNumber" class="form-control my-2 pt-n5" placeholder="Challan Number">
@@ -153,21 +159,6 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
         </script>
 
-    <script>
-        // Function to update header image based on selected company
-        function updateHeaderImage(selectedCompany) {
-            const headerImage = document.getElementById('headerImage');
-            if (selectedCompany === 'ansales') {
-                headerImage.src = 'ansales.png'; // Update to actual path
-            } else if (selectedCompany === 'hemant') {
-                headerImage.src = 'hemant.png'; // Update to actual path
-            }
-        }
-
-        // Set default company
-        document.getElementById('companySelect').value = 'hemant';
-        updateHeaderImage('hemant');
-    </script>
 </body>
 
 </html>

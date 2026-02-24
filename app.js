@@ -204,16 +204,33 @@ var customers = [
   // Add more customers as needed
 ];
 var generateChallanClicked = false;
-// var isHemantTraders = false; // Default to A N Sales
-
-// Determine if Hemant Traders or A N Sales is selected
 var selectedOption = document.getElementById("companySelect").value;
-var isHemantTraders = selectedOption === "hemant"; // Check if Hemant Traders is selected
+var isHemantTraders = selectedOption === "hemant";
 
 document.getElementById("addItem").addEventListener("click", addItemToTable);
 document.getElementById("sb").addEventListener("click", generatechallan);
 document.getElementById("companySelect").addEventListener("change", updateCompanyDetails);
 
+function getItemInputValues() {
+  return {
+    name: document.getElementById("itemName").value,
+    width: document.getElementById("itemWidth").value,
+    quantity: parseFloat(document.getElementById("itemQuantity").value),
+    rate: parseFloat(document.getElementById("itemRate").value),
+    otherCharges: parseFloat(document.getElementById("otherCharges").value) || 0,
+    category: document
+      .getElementById("itemName")
+      .selectedOptions[0]
+      .getAttribute("data-category"),
+  };
+}
+
+function clearItemInputs() {
+  document.getElementById("itemQuantity").value = "";
+  document.getElementById("itemWidth").value = "";
+  document.getElementById("itemRate").value = "";
+  document.getElementById("otherCharges").value = "";
+}
 
 function addItemToTable() {
   if (generateChallanClicked) {
@@ -221,378 +238,300 @@ function addItemToTable() {
     return;
   }
 
-  var itemName = document.getElementById("itemName").value;
-  var itemWidth = document.getElementById("itemWidth").value;
-  var itemQuantity = parseFloat(document.getElementById("itemQuantity").value);
-  var itemRate = parseFloat(document.getElementById("itemRate").value);
-  var otherCharges = parseFloat(document.getElementById("otherCharges").value) || 0;
-
-  // Input Validation
-  if (!itemName || isNaN(itemQuantity) || itemQuantity <= 0 || isNaN(itemRate) || itemRate <= 0) {
+  var item = getItemInputValues();
+  if (!item.name || isNaN(item.quantity) || item.quantity <= 0 || isNaN(item.rate) || item.rate <= 0) {
     alert("Please provide valid inputs for Item Name, Quantity, and Rate.");
     return;
   }
 
-  // Film type validation for width
-  var category = document
-    .getElementById("itemName")
-    .selectedOptions[0].getAttribute("data-category");
-
-  if (category === "film" && (!itemWidth || parseFloat(itemWidth) <= 0)) {
+  if (item.category === "film" && (!item.width || parseFloat(item.width) <= 0)) {
     alert("Width is required and must be valid for film types.");
     return;
   }
 
-  // Adjust width and quantity formatting
-  var formattedWidth = parseFloat(itemWidth) > 60 ? `${itemWidth} mm` : `${itemWidth}"`;
-  var formattedQuantity = `${itemQuantity.toFixed(3)} Kgs`;
+  var formattedWidth = parseFloat(item.width) > 60 ? `${item.width} mm` : `${item.width}"`;
+  var formattedQuantity = `${item.quantity.toFixed(3)} Kgs`;
+  var itemAmount = item.quantity * item.rate + item.otherCharges;
 
-  // Calculate total amount
-  var itemAmount = itemQuantity * itemRate + otherCharges;
-
-  // Apply GST if Hemant Traders is selected
-  // if (isHemantTraders) {
-  //   const gstRate = 0.18; // 18% GST
-  //   const gstAmount = itemAmount * gstRate;
-  //   itemAmount += gstAmount;
-  // }
-
-  // Debugging
-  console.log("Item Amount (after GST, if applicable):", itemAmount);
-
-  // Add item to array
-  var item = {
-    name: itemName,
+  itemsArray.push({
+    name: item.name,
     width: formattedWidth,
     quantity: formattedQuantity,
     amount: itemAmount,
-  };
-  itemsArray.push(item);
+  });
 
-  // Display table headers (if not visible)
   document.getElementById("itemsTable").style.display = "table";
-
-  // Append row to table
   var tableBody = document.getElementById("itemsTableBody");
   var newRow = tableBody.insertRow();
   newRow.innerHTML = `
-    <td>${itemName}</td>
+    <td>${item.name}</td>
     <td>${formattedWidth}</td>
     <td>${formattedQuantity}</td>
     <td>₹${itemAmount.toFixed(2)}</td>
   `;
 
-  // Clear input fields
-  document.getElementById("itemQuantity").value = "";
-  document.getElementById("itemWidth").value = "";
-  document.getElementById("itemRate").value = "";
-  document.getElementById("otherCharges").value = "";
+  clearItemInputs();
 }
 
-function generatechallan() {
-  console.log("Generate button clicked");
-  if (itemQuantity <= 0 || itemRate <= 0) {
-      alert("Quantity and Rate must be positive numbers.");
-      return;
-  }
+function getCustomerDetails() {
+  return {
+    challanNumber: document.getElementById("challanNumber").value,
+    customerName: document.getElementById("customerName").value,
+    customerAddress: document.getElementById("customerAddress").value,
+    customerPhone: document.getElementById("customerPhone").value,
+    transporterName: document.getElementById("transporterName").value,
+    customerGSTnumber: document.getElementById("customergstno").value,
+  };
+}
 
-  // Show alert for Hemant Traders
-  if (isHemantTraders) {
-      alert("GST will be applied for Hemant Traders.");
-  }
-
-  generateChallanClicked = true;
-
-  var challanNumber = document.getElementById("challanNumber").value;
-  var customerName = document.getElementById("customerName").value;
-  var customerAddress = document.getElementById("customerAddress").value;
-  var customerPhone = document.getElementById("customerPhone").value;
-  var transporterName = document.getElementById("transporterName").value;
-  var customerGSTnumber = document.getElementById("customergstno").value;
+function getDateString() {
   var now = new Date();
   var day = now.getDate().toString().padStart(2, "0");
   var month = (now.getMonth() + 1).toString().padStart(2, "0");
-  var year = now.getFullYear().toString().slice(-2);
-  var dateString = day + "-" + month + "-" + "20" + year;
-
-  var itemsTable = document.getElementById("itemsTableBody");
-
-  // Declare tax amounts
-  var igstAmount = 0;
-  var cgstAmount = 0;
-  var sgstAmount = 0;
-
- // Calculate total item amount
- var totalItemAmount = calculateTotalAmount(itemsArray);
- // Determine GST type based on company and GST number
- if (isHemantTraders && customerGSTnumber) {
-  const gstRate = 0.18; // 18% GST
-  if (!customerGSTnumber.startsWith("27")) {
-    // Apply IGST
-    igstAmount = totalItemAmount * gstRate;
-  } else {
-    // Apply CGST and SGST
-    cgstAmount = (totalItemAmount * gstRate) / 2;
-    sgstAmount = cgstAmount;
-  }
+  var year = now.getFullYear();
+  return `${day}-${month}-${year}`;
 }
 
- // Calculate total amount including taxes
- var totalAmount = totalItemAmount + igstAmount + cgstAmount + sgstAmount;
+function calculateTotalAmount(items) {
+  return items.reduce((total, item) => total + item.amount, 0);
+}
 
-  // Display Total Weight and Total Amount (before GST)
-  var totalWeight = itemsArray.reduce((total, item) => total + parseFloat(item.quantity) || 0, 0);
-  var weightRow = itemsTable.insertRow(itemsTable.rows.length);
+function calculateTotalWeight(items) {
+  return items.reduce((total, item) => total + (parseFloat(item.quantity) || 0), 0);
+}
+
+function getTaxBreakup(totalItemAmount, gstNumber) {
+  var tax = { igstAmount: 0, cgstAmount: 0, sgstAmount: 0 };
+
+  if (!isHemantTraders || !gstNumber) {
+    return tax;
+  }
+
+  var gstRate = 0.18;
+  if (!gstNumber.startsWith("27")) {
+    tax.igstAmount = totalItemAmount * gstRate;
+  } else {
+    tax.cgstAmount = (totalItemAmount * gstRate) / 2;
+    tax.sgstAmount = tax.cgstAmount;
+  }
+
+  return tax;
+}
+
+function appendSummaryRows(summary) {
+  var itemsTableBody = document.getElementById("itemsTableBody");
+
+  var weightRow = itemsTableBody.insertRow(itemsTableBody.rows.length);
   weightRow.innerHTML = `
     <td></td>
     <td><strong>TOTAL:</strong></td>
-    <td><strong>${totalWeight.toFixed(3)} Kgs</strong></td>
-    <td><strong>₹${totalItemAmount.toFixed(2)}</strong></td>
+    <td><strong>${summary.totalWeight.toFixed(3)} Kgs</strong></td>
+    <td><strong>₹${summary.totalItemAmount.toFixed(2)}</strong></td>
   `;
-  // Add IGST row if applicable
-  if (igstAmount > 0) {
-    var igstRow = itemsTable.insertRow(itemsTable.rows.length);
+
+  if (summary.igstAmount > 0) {
+    var igstRow = itemsTableBody.insertRow(itemsTableBody.rows.length);
     igstRow.innerHTML = `
       <td></td>
       <td>ADD:</td>
       <td>IGST @ 18%</td>
-      <td>₹${igstAmount.toFixed(2)}</td>
+      <td>₹${summary.igstAmount.toFixed(2)}</td>
     `;
   }
-// Add CGST/SGST rows if applicable
-if (cgstAmount > 0 && sgstAmount > 0) {
-  var cgstRow = itemsTable.insertRow(itemsTable.rows.length);
-  cgstRow.innerHTML = `
+
+  if (summary.cgstAmount > 0 && summary.sgstAmount > 0) {
+    var cgstRow = itemsTableBody.insertRow(itemsTableBody.rows.length);
+    cgstRow.innerHTML = `
+      <td></td>
+      <td>ADD:</td>
+      <td>CGST @ 9%</td>
+      <td>₹${summary.cgstAmount.toFixed(2)}</td>
+    `;
+
+    var sgstRow = itemsTableBody.insertRow(itemsTableBody.rows.length);
+    sgstRow.innerHTML = `
+      <td></td>
+      <td>ADD:</td>
+      <td>SGST @ 9%</td>
+      <td>₹${summary.sgstAmount.toFixed(2)}</td>
+    `;
+  }
+
+  var totalRow = itemsTableBody.insertRow(itemsTableBody.rows.length);
+  totalRow.innerHTML = `
     <td></td>
-    <td>ADD:</td>
-    <td>CGST @ 9%</td>
-    <td>₹${cgstAmount.toFixed(2)}</td>
-  `;
-  var sgstRow = itemsTable.insertRow(itemsTable.rows.length);
-  sgstRow.innerHTML = `
     <td></td>
-    <td>ADD:</td>
-    <td>SGST @ 9%</td>
-    <td>₹${sgstAmount.toFixed(2)}</td>
+    <td><strong>Total Amt (INR):</strong></td>
+    <td><strong>₹${Math.round(summary.totalAmount)}/-</strong></td>
   `;
-} // Add row for Total Amount (INR)
-var totalRow = itemsTable.insertRow(itemsTable.rows.length);
-totalRow.innerHTML = `
-  <td></td>
-  <td></td>
-  <td><strong>Total Amt (INR):</strong></td>
-  <td><strong>₹${Math.round(totalAmount)}/-</strong></td>
-`;
+}
 
-// Debugging
-console.log("Total Weight:", totalWeight);
-console.log("Total Item Amount (Before GST):", totalItemAmount);
-console.log("CGST Amount:", cgstAmount);
-console.log("SGST Amount:", sgstAmount);
-console.log("IGST Amount:", igstAmount);
-console.log("Total Amount:", totalAmount);
-
-
-  // Calculate total weight
-  var totalWeight = itemsArray.reduce((total, item) => {
-    const quantity = parseFloat(item.quantity) || 0; // Parse and default to 0 if invalid
-    return total + quantity;
-}, 0);
-
-console.log("Total Weight:", totalWeight); // Ensure this logs a valid number
-// Calculate total amount from itemsArray
-var totalItemAmount = calculateTotalAmount(itemsArray); // Ensure itemsArray is valid
-console.log("Total Item Amount (Before GST):", totalItemAmount); // Debugging
-
-// Use totalItemAmount in subsequent calculations or display logic
-
-// Ensure totalWeight is a number before calling toFixed()
-console.log("Total Weight: ", totalWeight);
-document.getElementById('cnv').innerHTML = `
-   
-`;
-console.log("Items Array: ", itemsArray);
-
-
-
-  // Calculate total amount including GST (if applicable)
-  var totalAmount = totalItemAmount + cgstAmount + sgstAmount;
-
-  // Debugging: Log the total weight and total amount before GST
-  console.log("Total Weight: ", totalWeight);
-  console.log("Total Amount Before GST: ", totalItemAmount);
-
-  document.getElementById('cnv').innerHTML = `
-      <span style="font-size: 10px; font-weight:600;">(ORIGINAL FOR RECIPIENT)</span>
-      <div class="row">
-          <div class="col-md-12" style="display: flex; justify-content: space-between; text-align: left;">
-              <div class="col-md-3" style="text-align: left;">
-                  <p>D No.: ${challanNumber}/BWD</p>
-              </div>
-              <div class="col-md-3" style="text-align: right;">
-                  <p>DATE ${dateString}</p>
-              </div>
-          </div>
+function renderChallanDetails(details, summary, dateString) {
+  document.getElementById("cnv").innerHTML = `
+    <span style="font-size: 10px; font-weight:600;">(ORIGINAL FOR RECIPIENT)</span>
+    <div class="row">
+      <div class="col-md-12" style="display: flex; justify-content: space-between; text-align: left;">
+        <div class="col-md-3" style="text-align: left;">
+          <p>D No.: ${details.challanNumber}/BWD</p>
+        </div>
+        <div class="col-md-3" style="text-align: right;">
+          <p>DATE ${dateString}</p>
+        </div>
       </div>
-      <div class="row">
-          <div class="col-md-12">
-              <p style="display: inline;">M/S</p>
-              <h4 style="display: inline;">${customerName}</h4>
-          </div>
-      </div>
-      <h6>
-          ${customerAddress ? `<strong>Address:</strong> ${customerAddress}<br>` : ''}
-          ${customerPhone ? `<strong>Contact No:</strong> ${customerPhone} <br>` : ''}
-          ${customerGSTnumber ? `<strong>GST No:</strong> ${customerGSTnumber} <br>` : ''}
-          ${transporterName ? `<strong>Transporter:</strong> ${transporterName}` : ''}
-      </h6>
-      <p>RECEIVED THE BELOW MENTIONED IN GOOD ORDER AND CONDITION</p>
-       <p>Total Weight: ${totalWeight.toFixed(3)} Kgs</p>`;
+    </div>
+    <h6 style="text-align: left; line-height: 1.3; white-space: pre-line;"><strong>M/s. </strong>${details.customerName}
+${details.customerAddress}
+${details.customerPhone ? `<strong>Phone:</strong> ${details.customerPhone} <br>` : ""}
+      ${details.customerGSTnumber ? `<strong>GST No:</strong> ${details.customerGSTnumber} <br>` : ""}
+      ${details.transporterName ? `<strong>Transporter:</strong> ${details.transporterName}` : ""}
+    </h6>
+    <p>RECEIVED THE BELOW MENTIONED IN GOOD ORDER AND CONDITION</p>
+    <p>Total Weight: ${summary.totalWeight.toFixed(3)} Kgs</p>
+  `;
+}
 
-  // Hide input section
+function updateHeaderVisibility() {
+  var showHeader = document.getElementById("showHeader").checked;
+  var headerImage = document.getElementById("headerImage");
+  if (showHeader) {
+    headerImage.classList.remove("header-hidden");
+  } else {
+    headerImage.classList.add("header-hidden");
+  }
+}
+
+function generatechallan() {
+  if (!itemsArray.length) {
+    alert("Please add at least one item before generating the challan.");
+    return;
+  }
+
+  var details = getCustomerDetails();
+  if (!details.customerName) {
+    alert("Please select or enter customer details.");
+    return;
+  }
+
+  generateChallanClicked = true;
+  var totalItemAmount = calculateTotalAmount(itemsArray);
+  var totalWeight = calculateTotalWeight(itemsArray);
+  var tax = getTaxBreakup(totalItemAmount, details.customerGSTnumber);
+
+  var summary = {
+    totalItemAmount: totalItemAmount,
+    totalWeight: totalWeight,
+    igstAmount: tax.igstAmount,
+    cgstAmount: tax.cgstAmount,
+    sgstAmount: tax.sgstAmount,
+    totalAmount: totalItemAmount + tax.igstAmount + tax.cgstAmount + tax.sgstAmount,
+  };
+
+  appendSummaryRows(summary);
+  renderChallanDetails(details, summary, getDateString());
+  updateHeaderVisibility();
+
   document.getElementById("inputtable").style.display = "none";
-
-  // Show output section
   document.querySelector(".output").style.display = "block";
   document.querySelector(".footer").style.display = "block";
   window.print();
 }
 
-// Function to calculate total amount for all items
-function calculateTotalAmount(items) {
-  return items.reduce((total, item) => total + item.amount, 0);
-}
-
-
-// Function to calculate GST
-function calculateGST(items) {
-  const gstRate = 0.18; // 18% GST
-  let totalAmount = items.reduce((sum, item) => sum + item.amount, 0);
-  let gstAmount = totalAmount * gstRate;
-  let cgstAmount = gstAmount/2 ;
-  let sgstAmount = cgstAmount;
-  return { cgstAmount, sgstAmount };
-}
-
-
 function applyManualDetails() {
-  // Retrieve values from input fields and update corresponding elements
   var customerName = document.getElementById("customerName").value;
   var customerAddress = document.getElementById("customerAddress").value;
   var customerPhone = document.getElementById("customerPhone").value;
   var transporterName = document.getElementById("transporterName").value;
   var customerGSTnumber = document.getElementById("customergstno").value;
 
-  // Update the input fields with the manual entry details
   document.getElementById("customerName").value = customerName;
   document.getElementById("customerAddress").value = customerAddress;
   document.getElementById("customerPhone").value = customerPhone;
   document.getElementById("transporterName").value = transporterName;
   document.getElementById("customergstno").value = customerGSTnumber;
-
-  // Hide the input fields
   document.getElementById("customerDetailsInput").style.display = "none";
 }
-// Ensure DOM is loaded before calling functions
-document.addEventListener("DOMContentLoaded", function() {
-    populateCustomerDropdown();
+
+function populateCustomerDropdown() {
+  var selectElement = document.getElementById("customerSelect");
+  selectElement.innerHTML = '<option value="">--Select Customer--</option>';
+
+  customers.forEach(function (customer, index) {
+    var option = document.createElement("option");
+    option.value = index;
+    option.textContent = customer.name;
+    selectElement.appendChild(option);
   });
 
-  // Populate the dropdown with customer names
-  function populateCustomerDropdown() {
-    var selectElement = document.getElementById("customerSelect");
+  var otherOption = document.createElement("option");
+  otherOption.value = "other";
+  otherOption.textContent = "Other";
+  selectElement.appendChild(otherOption);
+}
 
-    // Clear previous options
-    selectElement.innerHTML = '<option value="">--Select Customer--</option>';
+function selectCustomerDetails() {
+  var selectedCustomerIndex = document.getElementById("customerSelect").value;
 
-    // Add customer options to dropdown
-    customers.forEach(function (customer, index) {
-      var option = document.createElement("option");
-      option.value = index;
-      option.textContent = customer.name;
-      selectElement.appendChild(option);
-    });
-
-    // Add "Other" option for manual entry
-    var otherOption = document.createElement("option");
-    otherOption.value = "other";
-    otherOption.textContent = "Other";
-    selectElement.appendChild(otherOption);
-  }
-  // Handle customer selection
-  function selectCustomerDetails() {
-    var selectedOption = document.getElementById("customerSelect").value;
-
-    if (selectedOption === "other") {
-      // Show manual entry fields if "Other" is selected
-      document.getElementById("customerDetailsInput").style.display = "block";
-      // Clear the input fields for a fresh start
-      clearCustomerFields();
-    } else if (selectedOption) {
-      // User selected a predefined customer
-      var selectedCustomer = customers[parseInt(selectedOption)];
-
-      // Update the input fields with the selected customer details
-      document.getElementById("customerName").value = selectedCustomer.name;
-      document.getElementById("customerAddress").value = selectedCustomer.address;
-      document.getElementById("customerPhone").value = selectedCustomer.phone;
-      document.getElementById("transporterName").value = selectedCustomer.transporter;
-      document.getElementById("customergstno").value = selectedCustomer.gst;
-      // Hide manual entry fields if a customer is selected
-      document.getElementById("customerDetailsInput").style.display = "none";
-    } else {
-      // Clear input fields if no customer is selected
-      clearCustomerFields();
-    }
-  }
-  // Function to clear input fields
-  function clearCustomerFields() {
-    document.getElementById("customerName").value = '';
-    document.getElementById("customerAddress").value = '';
-    document.getElementById("customerPhone").value = '';
-    document.getElementById("transporterName").value = '';
-    document.getElementById("customergstno").value = '';
+  if (selectedCustomerIndex === "other") {
+    document.getElementById("customerDetailsInput").style.display = "block";
+    clearCustomerFields();
+    return;
   }
 
-  // Save new customer details
-  function saveNewCustomer() {
-    var newCustomer = {
-      name: document.getElementById("newCustomerName").value,
-      address: document.getElementById("newCustomerAddress").value,
-      phone: document.getElementById("newCustomerPhone").value,
-      transporter: document.getElementById("newCustomerTransporter").value,
-      gst: document.getElementById("newCustomerGst").value
-    };
-
-    // Add to customers array
-    customers.push(newCustomer);
-
-    // Optionally, update UI or form
-    alert("New customer added!");
-    document.getElementById("customerDetailsInput").style.display = "none"; // Hide manual input
-    populateCustomerDropdown(); // Refresh dropdown with new customer
+  if (!selectedCustomerIndex) {
+    clearCustomerFields();
+    return;
   }
+
+  var selectedCustomer = customers[parseInt(selectedCustomerIndex)];
+  document.getElementById("customerName").value = selectedCustomer.name;
+  document.getElementById("customerAddress").value = selectedCustomer.address;
+  document.getElementById("customerPhone").value = selectedCustomer.phone;
+  document.getElementById("transporterName").value = selectedCustomer.transporter;
+  document.getElementById("customergstno").value = selectedCustomer.gst;
+  document.getElementById("customerDetailsInput").style.display = "none";
+}
+
+function clearCustomerFields() {
+  document.getElementById("customerName").value = "";
+  document.getElementById("customerAddress").value = "";
+  document.getElementById("customerPhone").value = "";
+  document.getElementById("transporterName").value = "";
+  document.getElementById("customergstno").value = "";
+}
+
+function saveNewCustomer() {
+  var newCustomer = {
+    name: document.getElementById("newCustomerName").value,
+    address: document.getElementById("newCustomerAddress").value,
+    phone: document.getElementById("newCustomerPhone").value,
+    transporter: document.getElementById("newCustomerTransporter").value,
+    gst: document.getElementById("newCustomerGst").value,
+  };
+
+  customers.push(newCustomer);
+  alert("New customer added!");
+  document.getElementById("customerDetailsInput").style.display = "none";
+  populateCustomerDropdown();
+}
 
 function updateCompanyDetails() {
   var selectedCompany = document.getElementById("companySelect").value;
-
-  // Update company-specific details
   updateHeaderImage(selectedCompany);
   applyGSTBasedOnCompany(selectedCompany);
 }
 
 function updateHeaderImage(selectedCompany) {
   const headerImage = document.getElementById("headerImage");
-  headerImage.src = selectedCompany === "ansales" ? "../ansales.png" : "../hemant.png";
+  headerImage.src = selectedCompany === "ansales" ? "ansales.png" : "hemant.png";
 }
-
 
 function applyGSTBasedOnCompany(selectedCompany) {
-  if (selectedCompany === "hemant") {
-    isHemantTraders = true;
-    alert("GST will be applied for Hemant Traders.");
-  } else if (selectedCompany === "ansales") {
-    isHemantTraders = false;
-    alert("GST will not be applied for A N Sales.");
-  }
+  isHemantTraders = selectedCompany === "hemant";
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  populateCustomerDropdown();
+  updateCompanyDetails();
+  document.getElementById("showHeader").addEventListener("change", updateHeaderVisibility);
+  updateHeaderVisibility();
+});
