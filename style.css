@@ -52,3 +52,17 @@
 .footer {
     display: none;
 }
+
+
+#headerImage {
+    width: 100%;
+    height: 100%;
+}
+
+#headerImage.header-hidden {
+    visibility: hidden;
+}
+
+.header {
+    min-height: 140px;
+}
