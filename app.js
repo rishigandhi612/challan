@@ -199,6 +199,13 @@ var customers = [
     phone: "( +91 ) 9225252516",
     transporter: "Jaggi Goods Carrier",
     gst: "27BIXPS4074E1ZM",
+  },
+   {
+    name: "Aadesh Enterprises",
+    address: "Patwardhan Chowk,Kurhade Hospital, Ahilyanagar",
+    phone: "( +91 ) 77759 81317",
+    transporter: "Jaggi Goods Carrier",
+    gst: "",
   }
 
   // Add more customers as needed
